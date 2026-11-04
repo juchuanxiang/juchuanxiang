@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鞠传祥 · 高级网页设计课堂实践</title>
+    <!-- 鞠传祥 —— GitHub Pages 入口页：根地址没有 index.html 会报 404，这里做入口跳转 -->
+    <meta http-equiv="refresh" content="0; url=./the-best-ever/index.html">
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f7f5f1;
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+            color: #1c1c1c;
+        }
+
+        .jcx_entry {
+            text-align: center;
+            padding: 0 24px;
+        }
+
+        .jcx_entry_title {
+            margin: 0 0 10px;
+            font-size: 22px;
+            letter-spacing: 0.08em;
+        }
+
+        .jcx_entry_text {
+            margin: 0 0 18px;
+            font-size: 13px;
+            color: #6b6b6b;
+        }
+
+        .jcx_entry_link {
+            display: inline-block;
+            padding: 10px 22px;
+            border-radius: 999px;
+            background: #1c1c1c;
+            color: #ffffff;
+            font-size: 13px;
+            text-decoration: none;
+            letter-spacing: 0.06em;
+        }
+
+        .jcx_entry_link:hover {
+            background: #000000;
+        }
+    </style>
+</head>
+<body>
+    <!-- 鞠传祥 —— 入口页内容 -->
+    <div class="jcx_entry">
+        <h1 class="jcx_entry_title">高级网页设计 · 课堂实践</h1>
+        <p class="jcx_entry_text">正在进入课堂目录…</p>
+        <a class="jcx_entry_link" href="./the-best-ever/index.html">立即进入 →</a>
+    </div>
+    <script>
+        /* 鞠传祥 —— 兜底跳转：防止个别浏览器忽略 meta refresh */
+        window.location.replace("./the-best-ever/index.html");
+    </script>
+</body>
+</html>

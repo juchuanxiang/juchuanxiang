@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>热播榜 · 鞠传祥</title>
+    <!-- 作者：鞠传祥 -->
+    <style>
+        /* 鞠传祥 —— 热播榜模块样式（按截图一比一还原） */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 0 0;
+            background: #ffffff;
+            font-family: "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", sans-serif;
+            color: #333333;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* 排行榜容器：宽 262px，与截图度量一致 */
+        .jcx_rank {
+            width: 262px;
+        }
+
+        /* 顶部四个切换标签 */
+        .jcx_rank_tabs {
+            display: flex;
+            gap: 1px;
+            height: 27px;
+            background: #ffffff;
+            border-bottom: 2px solid #7d7d7d;
+        }
+
+        .jcx_rank_tab {
+            flex: 1 1 0;
+            height: 25px;
+            padding: 0;
+            border: 0;
+            background: #e4e4e4;
+            font-family: inherit;
+            font-size: 12px;
+            line-height: 25px;
+            color: #2a2a2a;
+            text-align: center;
+            cursor: pointer;
+            outline: none;
+        }
+
+        /* 选中状态：深灰底 + 白字 */
+        .jcx_rank_tab_active {
+            background: #7d7d7d;
+            color: #ffffff;
+        }
+
+        /* 榜单：左右两列，每列 5 项，单项高 32px */
+        .jcx_rank_list {
+            margin: 0;
+            padding: 2px 0 0;
+            list-style: none;
+            display: grid;
+            grid-template-columns: 152px 110px;
+            grid-template-rows: repeat(5, 32px);
+            grid-auto-flow: column;
+        }
+
+        .jcx_rank_item {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            color: #2a2a2a;
+        }
+
+        /* 名次方块：前三名红色，其余浅灰 */
+        .jcx_rank_no {
+            flex: none;
+            width: 18px;
+            height: 18px;
+            margin-right: 8px;
+            background: #c3c3c3;
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: bold;
+            line-height: 18px;
+            text-align: center;
+            border-radius: 1px;
+        }
+
+        .jcx_rank_no_top {
+            background: #d93a3e;
+        }
+
+        .jcx_rank_name {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+<body>
+    <!-- 鞠传祥 —— 页面主体 -->
+    <main class="jcx_rank_wrap">
+        <section class="jcx_rank" id="jcx_rank">
+            <!-- 标签栏：每日 / 每周 / 每月 / 全部 -->
+            <div class="jcx_rank_tabs" id="jcx_rank_tabs" role="tablist">
+                <button type="button" class="jcx_rank_tab jcx_rank_tab_active" role="tab" aria-selected="true" data-jcx_key="daily">每日</button>
+                <button type="button" class="jcx_rank_tab" role="tab" aria-selected="false" data-jcx_key="weekly">每周</button>
+                <button type="button" class="jcx_rank_tab" role="tab" aria-selected="false" data-jcx_key="monthly">每月</button>
+                <button type="button" class="jcx_rank_tab" role="tab" aria-selected="false" data-jcx_key="all">全部</button>
+            </div>
+            <!-- 榜单列表由脚本渲染 -->
+            <ol class="jcx_rank_list" id="jcx_rank_list"></ol>
+        </section>
+    </main>
+
+    <script>
+        /* 鞠传祥 —— 榜单数据（对应四张截图的四个状态） */
+        const jcx_data = {
+            daily: [
+                "最美的时光", "咱们结婚吧", "渗透", "继承者们", "烽火佳人",
+                "极品女士第2季", "爱闪亮", "狼烟（2013）", "钱多多炼爱记", "苍狼"
+            ],
+            weekly: [
+                "咱们结婚吧", "继承者们", "最美的时光", "爱闪亮", "渗透",
+                "狼烟（2013）", "三十岁，你好", "钱多多炼爱记", "特种兵之火凤凰", "极品女士第2季"
+            ],
+            monthly: [
+                "特种兵之火凤凰", "咱们结婚吧", "继承者们", "金玉满堂", "王的女人",
+                "爱闪亮", "爱情面前谁怕谁", "英雄联盟", "小爸爸", "我们这拨人"
+            ],
+            all: [
+                "永不磨灭的番号", "特种兵之火凤凰", "新还珠格格", "咱们结婚吧", "小爸爸",
+                "心术", "乡村爱情5", "天天有喜", "一不小心爱上你", "夏日甜心"
+            ]
+        };
+
+        /* 鞠传祥 —— 相关节点与标签顺序 */
+        const jcx_tabNodes = Array.prototype.slice.call(document.querySelectorAll(".jcx_rank_tab"));
+        const jcx_listNode = document.getElementById("jcx_rank_list");
+
+        /* 鞠传祥 —— 渲染指定榜单 */
+        function jcx_render(key) {
+            const jcx_items = jcx_data[key] || [];
+            let jcx_html = "";
+            for (let jcx_i = 0; jcx_i < jcx_items.length; jcx_i++) {
+                const jcx_rankNo = jcx_i + 1;
+                const jcx_topClass = jcx_rankNo <= 3 ? " jcx_rank_no_top" : "";
+                jcx_html += '<li class="jcx_rank_item">' +
+                    '<span class="jcx_rank_no' + jcx_topClass + '">' + jcx_rankNo + '</span>' +
+                    '<span class="jcx_rank_name">' + jcx_items[jcx_i] + '</span>' +
+                    '</li>';
+            }
+            jcx_listNode.innerHTML = jcx_html;
+        }
+
+        /* 鞠传祥 —— 切换标签：同步选中态并重新渲染 */
+        function jcx_switchTab(jcx_key) {
+            jcx_tabNodes.forEach(function (jcx_tab) {
+                const jcx_isActive = jcx_tab.getAttribute("data-jcx_key") === jcx_key;
+                jcx_tab.classList.toggle("jcx_rank_tab_active", jcx_isActive);
+                jcx_tab.setAttribute("aria-selected", jcx_isActive ? "true" : "false");
+            });
+            jcx_render(jcx_key);
+        }
+
+        /* 鞠传祥 —— 绑定点击事件 */
+        jcx_tabNodes.forEach(function (jcx_tab) {
+            jcx_tab.addEventListener("click", function () {
+                jcx_switchTab(jcx_tab.getAttribute("data-jcx_key"));
+            });
+        });
+
+        /* 鞠传祥 —— 默认展示「每日」榜单 */
+        jcx_switchTab("daily");
+    </script>
+    <!-- 鞠传祥 —— 返回首页导航 -->
+    <a class="jcx_home_link" href="./the-best-ever/index.html" style="position: fixed; left: 14px; top: 14px; z-index: 99; padding: 6px 12px; border-radius: 999px; background: rgba(0,0,0,.62); color: #fff; font: 12px/1.2 'Microsoft YaHei', sans-serif; text-decoration: none; letter-spacing: .05em;">← 返回首页</a>
+</body>
+</html>

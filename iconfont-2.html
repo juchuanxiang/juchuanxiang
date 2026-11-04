@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lucide SVG 图标工坊 · 高级网页设计课堂实践">
+    <title>Vector Atelier · Lucide SVG 图标</title>
+    <style>
+        :root {
+            --jcx_paper: #efe9dd;
+            --jcx_paper-deep: #e4dccd;
+            --jcx_ink: #14130f;
+            --jcx_muted: #6d6559;
+            --jcx_cobalt: #1f37d0;
+            --jcx_sand: #cbbea4;
+            --jcx_line: rgba(20, 19, 15, 0.16);
+            --jcx_size: 30px;
+            --jcx_stroke: 2;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            color: var(--jcx_ink);
+            background:
+                radial-gradient(circle at 88% 6%, rgba(31, 55, 208, 0.1), transparent 26rem),
+                radial-gradient(circle at 6% 72%, rgba(203, 190, 164, 0.5), transparent 30rem),
+                var(--jcx_paper);
+            font-family: "Helvetica Neue", "Microsoft YaHei", "PingFang SC", sans-serif;
+            line-height: 1.65;
+            overflow-x: hidden;
+        }
+
+        body::after {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            content: "";
+            pointer-events: none;
+            opacity: 0.22;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+            mix-blend-mode: multiply;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .jcx_shell {
+            width: min(1200px, calc(100% - 48px));
+            margin: 0 auto;
+        }
+
+        /* ---------- 导航 ---------- */
+        .jcx_head {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--jcx_line);
+            background: rgba(239, 233, 221, 0.86);
+            backdrop-filter: blur(14px);
+        }
+
+        .jcx_head-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 16px 0;
+        }
+
+        .jcx_brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+        }
+
+        .jcx_brand-mark {
+            display: grid;
+            width: 34px;
+            height: 34px;
+            place-items: center;
+            color: var(--jcx_paper);
+            background: var(--jcx_cobalt);
+            border-radius: 50%;
+        }
+
+        .jcx_brand-mark svg {
+            width: 17px;
+            height: 17px;
+        }
+
+        .jcx_nav {
+            display: flex;
+            align-items: center;
+            gap: 26px;
+            font-size: 12px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .jcx_nav a {
+            position: relative;
+            padding-bottom: 3px;
+            color: var(--jcx_muted);
+            transition: color 180ms ease;
+        }
+
+        .jcx_nav a::after {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            content: "";
+            background: var(--jcx_cobalt);
+            transition: width 220ms ease;
+        }
+
+        .jcx_nav a:hover {
+            color: var(--jcx_ink);
+        }
+
+        .jcx_nav a:hover::after {
+            width: 100%;
+        }
+
+        .jcx_nav-tag {
+            padding: 7px 13px;
+            color: var(--jcx_cobalt);
+            border: 1px solid var(--jcx_cobalt);
+            border-radius: 999px;
+            font-size: 11px;
+            letter-spacing: 0.14em;
+        }
+
+        /* ---------- 主视觉 ---------- */
+        .jcx_hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+            gap: 48px;
+            align-items: center;
+            padding: 88px 0 70px;
+        }
+
+        .jcx_kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0 0 28px;
+            color: var(--jcx_cobalt);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+        }
+
+        .jcx_kicker::before {
+            width: 42px;
+            height: 2px;
+            content: "";
+            background: var(--jcx_cobalt);
+        }
+
+        .jcx_title {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(56px, 9vw, 118px);
+            font-weight: 400;
+            line-height: 0.9;
+            letter-spacing: -0.04em;
+        }
+
+        .jcx_title em {
+            display: block;
+            color: var(--jcx_cobalt);
+            font-style: italic;
+        }
+
+        .jcx_lede {
+            max-width: 470px;
+            margin: 30px 0 0;
+            color: var(--jcx_muted);
+            font-size: 16px;
+        }
+
+        .jcx_stats {
+            display: flex;
+            gap: 34px;
+            margin-top: 36px;
+            padding-top: 20px;
+            border-top: 1px solid var(--jcx_line);
+        }
+
+        .jcx_stat strong {
+            display: block;
+            font-family: Georgia, serif;
+            font-size: 29px;
+            line-height: 1.1;
+        }
+
+        .jcx_stat span {
+            color: var(--jcx_muted);
+            font-size: 11px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .jcx_hero-art {
+            display: grid;
+            place-items: center;
+            padding: 26px;
+            border: 1px solid var(--jcx_line);
+            background: var(--jcx_paper-deep);
+        }
+
+        .jcx_hero-art svg {
+            width: 100%;
+            max-width: 360px;
+            height: auto;
+        }
+
+        .jcx_hero-art p {
+            margin: 18px 0 0;
+            color: var(--jcx_muted);
+            font-size: 11px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        /* ---------- 分区 ---------- */
+        .jcx_section {
+            padding: 78px 0 0;
+        }
+
+        .jcx_section-head {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 30px;
+            padding-bottom: 22px;
+            border-bottom: 1px solid var(--jcx_line);
+        }
+
+        .jcx_section-index {
+            color: var(--jcx_cobalt);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+        }
+
+        .jcx_section-title {
+            margin: 8px 0 0;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(28px, 4vw, 44px);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+        }
+
+        .jcx_section-note {
+            max-width: 340px;
+            margin: 0;
+            color: var(--jcx_muted);
+            font-size: 13px;
+            text-align: right;
+        }
+
+        /* ---------- 控制台 ---------- */
+        .jcx_controls {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 34px;
+            margin: 26px 0 6px;
+            padding: 20px 24px;
+            border: 1px solid var(--jcx_line);
+            background: rgba(228, 220, 205, 0.6);
+        }
+
+        .jcx_control {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 11px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .jcx_control input[type="range"] {
+            width: 132px;
+            accent-color: var(--jcx_cobalt);
+        }
+
+        .jcx_control output {
+            min-width: 42px;
+            color: var(--jcx_cobalt);
+            font-family: Consolas, monospace;
+            font-size: 12px;
+            letter-spacing: 0;
+        }
+
+        .jcx_controls-note {
+            margin: 0 0 0 auto;
+            color: var(--jcx_muted);
+            font-size: 11px;
+            letter-spacing: 0.1em;
+        }
+
+        /* ---------- 图标网格 ---------- */
+        .jcx_grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            gap: 1px;
+            margin-top: 30px;
+            background: var(--jcx_line);
+            border: 1px solid var(--jcx_line);
+        }
+
+        .jcx_tile {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 26px;
+            min-height: 164px;
+            padding: 24px 22px;
+            background: var(--jcx_paper);
+            transition: background 220ms ease, transform 220ms ease;
+        }
+
+        .jcx_tile svg {
+            width: var(--jcx_size);
+            height: var(--jcx_size);
+            stroke-width: var(--jcx_stroke);
+            color: var(--jcx_ink);
+            transition: color 200ms ease, transform 260ms cubic-bezier(0.2, 0.9, 0.2, 1);
+        }
+
+        .jcx_tile-meta {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            width: 100%;
+            gap: 10px;
+        }
+
+        .jcx_tile-name {
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: lowercase;
+        }
+
+        .jcx_tile-kind {
+            color: var(--jcx_muted);
+            font-size: 9px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        .jcx_tile:hover {
+            background: var(--jcx_paper-deep);
+            transform: translateY(-4px);
+        }
+
+        .jcx_tile:hover svg {
+            color: var(--jcx_cobalt);
+            transform: scale(1.3) rotate(6deg);
+        }
+
+        .jcx_tile::after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            content: "";
+            background: var(--jcx_cobalt);
+            transition: width 260ms ease;
+        }
+
+        .jcx_tile:hover::after {
+            width: 100%;
+        }
+
+        /* ---------- 代码对照 ---------- */
+        .jcx_compare {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            margin-top: 30px;
+            background: var(--jcx_line);
+            border: 1px solid var(--jcx_line);
+        }
+
+        .jcx_compare-cell {
+            padding: 26px 28px;
+            background: var(--jcx_paper);
+        }
+
+        .jcx_compare-cell h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 0 16px;
+            font-size: 13px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .jcx_compare-cell h3 span {
+            padding: 3px 9px;
+            color: var(--jcx_paper);
+            background: var(--jcx_ink);
+            font-size: 9px;
+            letter-spacing: 0.16em;
+        }
+
+        .jcx_code {
+            margin: 0;
+            color: #3a352c;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 12.5px;
+            line-height: 1.9;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .jcx_code b {
+            color: var(--jcx_cobalt);
+        }
+
+        .jcx_code em {
+            color: #9c3b1d;
+            font-style: normal;
+        }
+
+        /* ---------- 描边与填充 ---------- */
+        .jcx_swatch {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1px;
+            margin-top: 30px;
+            background: var(--jcx_line);
+            border: 1px solid var(--jcx_line);
+        }
+
+        .jcx_swatch-cell {
+            display: grid;
+            gap: 14px;
+            place-items: center;
+            padding: 30px 14px;
+            background: var(--jcx_paper);
+            transition: background 220ms ease;
+        }
+
+        .jcx_swatch-cell svg {
+            width: 46px;
+            height: 46px;
+        }
+
+        .jcx_swatch-cell svg use {
+            fill: none;
+            stroke: var(--jcx_ink);
+            stroke-width: 2;
+            stroke-linejoin: round;
+        }
+
+        .jcx_swatch-cell span {
+            color: var(--jcx_muted);
+            font-size: 10px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .jcx_swatch-cell:hover {
+            background: var(--jcx_paper-deep);
+        }
+
+        .jcx_swatch-cell.jcx_filled svg use {
+            fill: var(--jcx_cobalt);
+            stroke: none;
+        }
+
+        .jcx_swatch-cell.jcx_dashed svg use {
+            stroke: var(--jcx_cobalt);
+            stroke-dasharray: 6 5;
+        }
+
+        /* ---------- 结语 ---------- */
+        .jcx_outro {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 0.7fr);
+            align-items: center;
+            gap: 40px;
+            margin: 92px 0 0;
+            padding: 50px clamp(24px, 5vw, 62px);
+            color: var(--jcx_paper);
+            background: var(--jcx_ink);
+        }
+
+        .jcx_outro h2 {
+            margin: 0;
+            font-family: Georgia, serif;
+            font-size: clamp(28px, 3.4vw, 40px);
+            font-weight: 400;
+        }
+
+        .jcx_outro p {
+            margin: 14px 0 0;
+            color: rgba(239, 233, 221, 0.66);
+            font-size: 14px;
+        }
+
+        .jcx_cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 26px;
+            padding: 13px 24px;
+            color: var(--jcx_ink);
+            background: var(--jcx_paper);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            transition: transform 200ms ease, background 200ms ease, color 200ms ease;
+        }
+
+        .jcx_cta:hover {
+            color: var(--jcx_paper);
+            background: var(--jcx_cobalt);
+            transform: translateX(-6px);
+        }
+
+        .jcx_outro-art {
+            justify-self: end;
+        }
+
+        .jcx_outro-art svg {
+            width: 130px;
+            height: 130px;
+            color: var(--jcx_paper);
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .jcx_foot {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 26px 0 42px;
+            color: var(--jcx_muted);
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        /* ---------- 入场动画 ---------- */
+        .jcx_rise {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 700ms ease, transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .jcx_rise.jcx_in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 880px) {
+            .jcx_hero {
+                grid-template-columns: 1fr;
+                padding-top: 60px;
+            }
+
+            .jcx_compare {
+                grid-template-columns: 1fr;
+            }
+
+            .jcx_section-head {
+                display: block;
+            }
+
+            .jcx_section-note {
+                margin-top: 12px;
+                text-align: left;
+            }
+
+            .jcx_controls-note {
+                margin: 0;
+            }
+
+            .jcx_outro {
+                grid-template-columns: 1fr;
+            }
+
+            .jcx_nav {
+                gap: 16px;
+                font-size: 10px;
+            }
+
+            .jcx_nav-tag {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+        <symbol id="jcx_symbol-gem" viewBox="0 0 24 24">
+            <path d="M6 3h12l4 6-10 13L2 9Z" />
+            <path d="M11 3 8 9l4 13 4-13-3-6M2 9h20" />
+        </symbol>
+    </svg>
+
+    <header class="jcx_head">
+        <div class="jcx_shell jcx_head-inner">
+            <a class="jcx_brand" href="../the-best-ever/index.html">
+                <span class="jcx_brand-mark" aria-hidden="true"><i data-lucide="origami"></i></span>
+                JCX · Vector Atelier
+            </a>
+            <nav class="jcx_nav" aria-label="页面导航">
+                <a href="../the-best-ever/index.html">首页</a>
+                <a href="#jcx_gallery">图标墙</a>
+                <a href="#jcx_compare">代码</a>
+                <a href="./iconfont-1.html">Font Awesome ↗</a>
+                <span class="jcx_nav-tag">Vol.02 / SVG</span>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="jcx_shell">
+            <section class="jcx_hero" aria-labelledby="jcx_page-title">
+                <div class="jcx_rise">
+                    <p class="jcx_kicker">Lucide · Open Source SVG Set</p>
+                    <h1 class="jcx_title" id="jcx_page-title">
+                        Vector
+                        <em>Atelier</em>
+                    </h1>
+                    <p class="jcx_lede">
+                        不写字，直接画。Lucide 以描边路径构成图形，页面上的每一枚图标都是可编辑的
+                        <code>&lt;svg&gt;</code>——可以改线宽、换颜色、拆分路径，也可以被 CSS 精确控制。
+                    </p>
+                    <div class="jcx_stats">
+                        <div class="jcx_stat"><strong>1600+</strong><span>Icons</span></div>
+                        <div class="jcx_stat"><strong>24</strong><span>Grid</span></div>
+                        <div class="jcx_stat"><strong>0</strong><span>Font File</span></div>
+                    </div>
+                </div>
+
+                <div class="jcx_hero-art jcx_rise">
+                    <svg viewBox="0 0 300 300" role="img" aria-label="由矢量线条构成的星形标识">
+                        <circle cx="150" cy="150" r="118" fill="none" stroke="#14130f" stroke-width="1.2" opacity="0.45" />
+                        <circle cx="150" cy="150" r="86" fill="none" stroke="#1f37d0" stroke-width="1.2" />
+                        <path d="M150 42 190 122 278 134 214 196 230 286 150 242 70 286 86 196 22 134 110 122Z"
+                            fill="none" stroke="#1f37d0" stroke-width="2.4" stroke-linejoin="round" />
+                        <path d="M150 96 174 146 228 154 188 193 198 248 150 222 102 248 112 193 72 154 126 146Z"
+                            fill="#14130f" opacity="0.9" />
+                        <circle cx="150" cy="150" r="6" fill="#1f37d0" />
+                    </svg>
+                    <p>Hand-drawn Path / 300 × 300</p>
+                </div>
+            </section>
+
+            <section class="jcx_section" id="jcx_gallery" aria-labelledby="jcx_gallery-title">
+                <div class="jcx_section-head jcx_rise">
+                    <div>
+                        <span class="jcx_section-index">01 / Gallery</span>
+                        <h2 class="jcx_section-title" id="jcx_gallery-title">描边图标阵列</h2>
+                    </div>
+                    <p class="jcx_section-note">下方滑块实时改写 CSS 变量，所有 SVG 同步响应——这是矢量图形独有的控制力。</p>
+                </div>
+
+                <div class="jcx_controls jcx_rise">
+                    <label class="jcx_control" for="jcx_range-size">
+                        尺寸
+                        <input id="jcx_range-size" type="range" min="18" max="56" value="30" step="1">
+                        <output id="jcx_out-size">30px</output>
+                    </label>
+                    <label class="jcx_control" for="jcx_range-stroke">
+                        线宽
+                        <input id="jcx_range-stroke" type="range" min="0.5" max="4" value="2" step="0.25">
+                        <output id="jcx_out-stroke">2</output>
+                    </label>
+                    <p class="jcx_controls-note">Interaction / CSS Custom Properties</p>
+                </div>
+
+                <div class="jcx_grid" id="jcx_icon-grid">
+                    <article class="jcx_tile"><i data-lucide="sparkles"></i><div class="jcx_tile-meta"><span class="jcx_tile-name">sparkles</span><span class="jcx_tile-kind">svg</span></div></article>
+                    <article class="jcx_tile"><i data-lucide="gem"></i><div class="jcx_tile-meta"><span class="jcx_tile-name">gem</span><span class="jcx_tile-kind">svg</span></div></article>
+                    <article class="jcx_tile"><i data-lucide="rocket"></i><div class="jcx_tile-meta"><span class="jcx_tile-name">rocket</span><span class="jcx_tile-kind">svg</span></div></article>
+                    <article class="jcx_tile"><i data-lucide="compass"></i><div class="jcx_tile-meta"><span class="jcx_tile-name">compass</span><span class="jcx_tile-kind">svg</span></div></article>
+                    <article class="jcx_tile"><i data-lucide="feather"></i><div class="jcx_tile-meta"><span class="jcx_tile-name">feather</span><span class="jcx_tile-kind">svg</span></div></article>
+                    <article class="jcx_tile"><i data-lucide="leaf"></i><div class="jcx_tile-meta"><span class="jcx_tile-name">leaf</span><span class="jcx_tile-kind">svg</span></div></article>
+                    <article class="jcx_tile"><i data-lucide="zap"></i><div class="jcx_tile-meta"><span class="jcx_tile-name">zap</span><span class="jcx_tile-kind">svg</span></div></article>
+                    <article class="jcx_tile"><i data-lucide="aperture"></i><div class="jcx_tile-meta"><span class="jcx_tile-name">aperture</span><span class="jcx_tile-kind">svg</span></div></article>
+                    <article class="jcx_tile"><i data-lucide="layers"></i><div class="jcx_tile-meta"><span class="jcx_tile-name">layers</span><span class="jcx_tile-kind">svg</span></div></article>
+                    <article class="jcx_tile"><i data-lucide="palette"></i><div class="jcx_tile-meta"><span class="jcx_tile-name">palette</span><span class="jcx_tile-kind">svg</span></div></article>
+                    <article class="jcx_tile"><i data-lucide="pen-tool"></i><div class="jcx_tile-meta"><span class="jcx_tile-name">pen-tool</span><span class="jcx_tile-kind">svg</span></div></article>
+                    <article class="jcx_tile"><i data-lucide="frame"></i><div class="jcx_tile-meta"><span class="jcx_tile-name">frame</span><span class="jcx_tile-kind">svg</span></div></article>
+                    <article class="jcx_tile"><i data-lucide="cpu"></i><div class="jcx_tile-meta"><span class="jcx_tile-name">cpu</span><span class="jcx_tile-kind">svg</span></div></article>
+                    <article class="jcx_tile"><i data-lucide="globe"></i><div class="jcx_tile-meta"><span class="jcx_tile-name">globe</span><span class="jcx_tile-kind">svg</span></div></article>
+                    <article class="jcx_tile"><i data-lucide="waves"></i><div class="jcx_tile-meta"><span class="jcx_tile-name">waves</span><span class="jcx_tile-kind">svg</span></div></article>
+                    <article class="jcx_tile"><i data-lucide="moon"></i><div class="jcx_tile-meta"><span class="jcx_tile-name">moon</span><span class="jcx_tile-kind">svg</span></div></article>
+                    <article class="jcx_tile"><i data-lucide="fingerprint"></i><div class="jcx_tile-meta"><span class="jcx_tile-name">fingerprint</span><span class="jcx_tile-kind">svg</span></div></article>
+                    <article class="jcx_tile"><i data-lucide="shapes"></i><div class="jcx_tile-meta"><span class="jcx_tile-name">shapes</span><span class="jcx_tile-kind">svg</span></div></article>
+                </div>
+            </section>
+
+            <section class="jcx_section" id="jcx_compare" aria-labelledby="jcx_compare-title">
+                <div class="jcx_section-head jcx_rise">
+                    <div>
+                        <span class="jcx_section-index">02 / Compare</span>
+                        <h2 class="jcx_section-title" id="jcx_compare-title">从标记到图形</h2>
+                    </div>
+                    <p class="jcx_section-note">书写只需要一行 data-lucide，浏览器拿到的却是一段真正的 SVG 结构。</p>
+                </div>
+
+                <div class="jcx_compare jcx_rise">
+                    <div class="jcx_compare-cell">
+                        <h3><span>HTML</span> 你写的</h3>
+                        <pre class="jcx_code">&lt;i data-lucide="<em>gem</em>"&gt;&lt;/i&gt;
+
+&lt;script src="./cdn/lucide/lucide.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;<b>lucide.createIcons();</b>&lt;/script&gt;</pre>
+                    </div>
+                    <div class="jcx_compare-cell">
+                        <h3><span>DOM</span> 渲染后的</h3>
+                        <pre class="jcx_code">&lt;svg class="<b>lucide lucide-gem</b>" width="24" height="24"
+     viewBox="0 0 24 24"&gt;
+  &lt;path d="M6 3h12l4 6-10 13L2 9Z"&gt;&lt;/path&gt;
+  &lt;path d="M11 3 8 9l4 13 4-13-3-6"&gt;&lt;/path&gt;
+  &lt;path d="M2 9h20"&gt;&lt;/path&gt;
+&lt;/svg&gt;</pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="jcx_section" aria-labelledby="jcx_swatch-title">
+                <div class="jcx_section-head jcx_rise">
+                    <div>
+                        <span class="jcx_section-index">03 / Symbol</span>
+                        <h2 class="jcx_section-title" id="jcx_swatch-title">一处定义，多处复用</h2>
+                    </div>
+                    <p class="jcx_section-note">同一个 <code>&lt;symbol&gt;</code> 通过 <code>&lt;use&gt;</code> 反复引用，只需要改样式就能改变形态。</p>
+                </div>
+
+                <div class="jcx_swatch jcx_rise">
+                    <div class="jcx_swatch-cell"><svg viewBox="0 0 24 24"><use href="#jcx_symbol-gem"></use></svg><span>Stroke</span></div>
+                    <div class="jcx_swatch-cell jcx_dashed"><svg viewBox="0 0 24 24"><use href="#jcx_symbol-gem"></use></svg><span>Dashed</span></div>
+                    <div class="jcx_swatch-cell jcx_filled"><svg viewBox="0 0 24 24"><use href="#jcx_symbol-gem"></use></svg><span>Filled</span></div>
+                </div>
+            </section>
+
+            <section class="jcx_outro jcx_rise">
+                <div>
+                    <h2>把图形写进字体，或把字体画成图形。</h2>
+                    <p>两种思路，一种目的：让界面在任意分辨率下都保持清晰与秩序。</p>
+                    <a class="jcx_cta" href="./iconfont-1.html"><i data-lucide="arrow-left"></i> 回到 Font Awesome 图册</a>
+                </div>
+                <div class="jcx_outro-art" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><use href="#jcx_symbol-gem"></use></svg>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="jcx_shell jcx_foot">
+        <span>© 2026 JCX · 高级网页设计课堂实践</span>
+        <span>Lucide 0.468 · Local SVG Icons</span>
+    </footer>
+
+    <script src="./cdn/lucide/lucide.min.js"></script>
+    <script>
+        const jcx_rangeSize = document.getElementById("jcx_range-size");
+        const jcx_rangeStroke = document.getElementById("jcx_range-stroke");
+        const jcx_outSize = document.getElementById("jcx_out-size");
+        const jcx_outStroke = document.getElementById("jcx_out-stroke");
+        const jcx_root = document.documentElement;
+
+        function jcx_syncIconVars() {
+            jcx_root.style.setProperty("--jcx_size", jcx_rangeSize.value + "px");
+            jcx_root.style.setProperty("--jcx_stroke", jcx_rangeStroke.value);
+            jcx_outSize.textContent = jcx_rangeSize.value + "px";
+            jcx_outStroke.textContent = jcx_rangeStroke.value;
+        }
+
+        jcx_rangeSize.addEventListener("input", jcx_syncIconVars);
+        jcx_rangeStroke.addEventListener("input", jcx_syncIconVars);
+
+        lucide.createIcons();
+
+        const jcx_revealObserver = new IntersectionObserver(function (jcx_entries) {
+            jcx_entries.forEach(function (jcx_entry) {
+                if (jcx_entry.isIntersecting) {
+                    jcx_entry.target.classList.add("jcx_in");
+                    jcx_revealObserver.unobserve(jcx_entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll(".jcx_rise").forEach(function (jcx_element) {
+            jcx_revealObserver.observe(jcx_element);
+        });
+    </script>
+</body>
+
+</html>

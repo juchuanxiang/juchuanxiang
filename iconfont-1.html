@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Font Awesome 字体图标艺术墙 · 高级网页设计课堂实践">
+    <title>Glyph Typecase · Font Awesome 字体图标</title>
+    <link rel="stylesheet" href="./cdn/fontawesome/css/all.min.css">
+    <style>
+        :root {
+            --jcx_ink: #0c0c0e;
+            --jcx_ink-soft: #16161a;
+            --jcx_chalk: #f2ebdf;
+            --jcx_chalk-dim: #b9b2a6;
+            --jcx_vermilion: #ff4a1f;
+            --jcx_acid: #dcff45;
+            --jcx_line: rgba(242, 235, 223, 0.16);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            color: var(--jcx_chalk);
+            background: var(--jcx_ink);
+            font-family: "Helvetica Neue", "Microsoft YaHei", "PingFang SC", sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::after {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            content: "";
+            pointer-events: none;
+            opacity: 0.32;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+            mix-blend-mode: overlay;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .jcx_shell {
+            width: min(1240px, calc(100% - 48px));
+            margin: 0 auto;
+        }
+
+        /* ---------- 顶部导航 ---------- */
+        .jcx_head {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--jcx_line);
+            background: rgba(12, 12, 14, 0.82);
+            backdrop-filter: blur(14px);
+        }
+
+        .jcx_head-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 16px 0;
+        }
+
+        .jcx_brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+        }
+
+        .jcx_brand i {
+            display: grid;
+            width: 34px;
+            height: 34px;
+            place-items: center;
+            color: var(--jcx_ink);
+            background: var(--jcx_acid);
+            border-radius: 50%;
+            font-size: 15px;
+        }
+
+        .jcx_nav {
+            display: flex;
+            align-items: center;
+            gap: 26px;
+            font-size: 12px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .jcx_nav a {
+            position: relative;
+            padding-bottom: 3px;
+            color: var(--jcx_chalk-dim);
+            transition: color 180ms ease;
+        }
+
+        .jcx_nav a::after {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            content: "";
+            background: var(--jcx_vermilion);
+            transition: width 220ms ease;
+        }
+
+        .jcx_nav a:hover {
+            color: var(--jcx_chalk);
+        }
+
+        .jcx_nav a:hover::after {
+            width: 100%;
+        }
+
+        .jcx_nav-tag {
+            padding: 7px 13px;
+            color: var(--jcx_acid);
+            border: 1px solid var(--jcx_acid);
+            border-radius: 999px;
+            font-size: 11px;
+            letter-spacing: 0.14em;
+        }
+
+        /* ---------- 主视觉 ---------- */
+        .jcx_hero {
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.55fr);
+            gap: 40px;
+            align-items: end;
+            padding: 92px 0 74px;
+            overflow: hidden;
+        }
+
+        .jcx_hero-figure {
+            position: absolute;
+            top: 8%;
+            right: -4%;
+            z-index: 0;
+            color: rgba(242, 235, 223, 0.05);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(220px, 32vw, 430px);
+            line-height: 0.8;
+            letter-spacing: -0.06em;
+            pointer-events: none;
+            user-select: none;
+            transform: rotate(-8deg);
+        }
+
+        .jcx_hero-copy {
+            position: relative;
+            z-index: 1;
+        }
+
+        .jcx_kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0 0 30px;
+            color: var(--jcx_acid);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+        }
+
+        .jcx_kicker::before {
+            width: 42px;
+            height: 2px;
+            content: "";
+            background: var(--jcx_acid);
+        }
+
+        .jcx_title {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(62px, 11vw, 148px);
+            font-weight: 400;
+            line-height: 0.86;
+            letter-spacing: -0.04em;
+        }
+
+        .jcx_title-outline {
+            display: block;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--jcx_vermilion);
+            font-style: italic;
+        }
+
+        .jcx_lede {
+            max-width: 520px;
+            margin: 34px 0 0;
+            color: var(--jcx_chalk-dim);
+            font-size: 16px;
+        }
+
+        .jcx_hero-panel {
+            position: relative;
+            z-index: 1;
+            padding: 26px 24px;
+            border: 1px solid var(--jcx_line);
+            border-top: 3px solid var(--jcx_vermilion);
+            background: var(--jcx_ink-soft);
+        }
+
+        .jcx_hero-panel i {
+            color: var(--jcx_vermilion);
+            font-size: 30px;
+        }
+
+        .jcx_hero-panel h2 {
+            margin: 16px 0 12px;
+            font-size: 18px;
+            letter-spacing: 0.04em;
+        }
+
+        .jcx_hero-panel p {
+            margin: 0;
+            color: var(--jcx_chalk-dim);
+            font-size: 13px;
+        }
+
+        .jcx_stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+            padding-top: 22px;
+            border-top: 1px solid var(--jcx_line);
+        }
+
+        .jcx_stat strong {
+            display: block;
+            font-family: Georgia, serif;
+            font-size: 30px;
+            line-height: 1.1;
+        }
+
+        .jcx_stat span {
+            color: var(--jcx_chalk-dim);
+            font-size: 11px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        /* ---------- 跑马灯 ---------- */
+        .jcx_ticker {
+            display: flex;
+            overflow: hidden;
+            color: var(--jcx_ink);
+            background: var(--jcx_acid);
+            border-top: 1px solid var(--jcx_ink);
+            border-bottom: 1px solid var(--jcx_ink);
+            white-space: nowrap;
+        }
+
+        .jcx_ticker-track {
+            display: flex;
+            flex: none;
+            gap: 34px;
+            padding: 13px 0;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            animation: jcx_slide 26s linear infinite;
+        }
+
+        .jcx_ticker-track span {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .jcx_ticker-track i {
+            font-size: 13px;
+        }
+
+        @keyframes jcx_slide {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* ---------- 分区标题 ---------- */
+        .jcx_section {
+            padding: 86px 0 0;
+        }
+
+        .jcx_section-head {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 30px;
+            padding-bottom: 22px;
+            border-bottom: 1px solid var(--jcx_line);
+        }
+
+        .jcx_section-index {
+            color: var(--jcx_vermilion);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+        }
+
+        .jcx_section-title {
+            margin: 8px 0 0;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(30px, 4.2vw, 48px);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+        }
+
+        .jcx_section-note {
+            max-width: 340px;
+            margin: 0;
+            color: var(--jcx_chalk-dim);
+            font-size: 13px;
+            text-align: right;
+        }
+
+        /* ---------- 筛选按钮 ---------- */
+        .jcx_filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 30px 0 34px;
+        }
+
+        .jcx_filter {
+            padding: 9px 20px;
+            color: var(--jcx_chalk-dim);
+            border: 1px solid var(--jcx_line);
+            background: transparent;
+            font-family: inherit;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 180ms ease;
+        }
+
+        .jcx_filter:hover {
+            color: var(--jcx_chalk);
+            border-color: rgba(242, 235, 223, 0.45);
+        }
+
+        .jcx_filter.jcx_active {
+            color: var(--jcx_ink);
+            border-color: var(--jcx_acid);
+            background: var(--jcx_acid);
+        }
+
+        /* ---------- 图标网格 ---------- */
+        .jcx_grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(176px, 1fr));
+            gap: 1px;
+            background: var(--jcx_line);
+            border: 1px solid var(--jcx_line);
+        }
+
+        .jcx_tile {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: space-between;
+            min-height: 168px;
+            padding: 24px 22px;
+            background: var(--jcx_ink);
+            transition: background 220ms ease, transform 220ms ease;
+        }
+
+        .jcx_tile[data-jcx-kind].jcx_hidden {
+            display: none;
+        }
+
+        .jcx_tile-icon {
+            color: var(--jcx_chalk);
+            font-size: 30px;
+            transition: color 200ms ease, transform 260ms cubic-bezier(0.2, 0.9, 0.2, 1);
+        }
+
+        .jcx_tile-meta {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            width: 100%;
+            gap: 10px;
+        }
+
+        .jcx_tile-name {
+            font-size: 12px;
+            letter-spacing: 0.08em;
+        }
+
+        .jcx_tile-kind {
+            color: var(--jcx_chalk-dim);
+            font-size: 9px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .jcx_tile:hover {
+            background: var(--jcx_ink-soft);
+            transform: translateY(-4px);
+        }
+
+        .jcx_tile:hover .jcx_tile-icon {
+            color: var(--jcx_vermilion);
+            transform: scale(1.28) rotate(-6deg);
+        }
+
+        .jcx_tile::after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            content: "";
+            background: var(--jcx_acid);
+            transition: width 260ms ease;
+        }
+
+        .jcx_tile:hover::after {
+            width: 100%;
+        }
+
+        /* ---------- 字形样本 ---------- */
+        .jcx_specimen {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 1px;
+            margin-top: 34px;
+            background: var(--jcx_line);
+            border: 1px solid var(--jcx_line);
+        }
+
+        .jcx_specimen-cell {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 300px;
+            padding: 32px;
+            background: var(--jcx_ink);
+        }
+
+        .jcx_specimen-cell p {
+            margin: 0;
+            color: var(--jcx_chalk-dim);
+            font-size: 12px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .jcx_glyph-big {
+            color: var(--jcx_vermilion);
+            font-size: clamp(70px, 10vw, 132px);
+            line-height: 1;
+        }
+
+        .jcx_glyph-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 22px;
+            color: var(--jcx_chalk);
+        }
+
+        .jcx_glyph-row i:nth-child(1) {
+            font-size: 20px;
+        }
+
+        .jcx_glyph-row i:nth-child(2) {
+            font-size: 32px;
+        }
+
+        .jcx_glyph-row i:nth-child(3) {
+            font-size: 48px;
+        }
+
+        .jcx_glyph-row i:nth-child(4) {
+            font-size: 64px;
+        }
+
+        .jcx_code {
+            margin: 0;
+            padding: 30px 32px;
+            color: var(--jcx_chalk-dim);
+            border-left: 3px solid var(--jcx_acid);
+            background: var(--jcx_ink-soft);
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 13px;
+            line-height: 1.9;
+            white-space: pre-wrap;
+        }
+
+        .jcx_code b {
+            color: var(--jcx_acid);
+            font-weight: 400;
+        }
+
+        .jcx_code em {
+            color: var(--jcx_vermilion);
+            font-style: normal;
+        }
+
+        /* ---------- 品牌标识 ---------- */
+        .jcx_brands {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1px;
+            margin-top: 34px;
+            background: var(--jcx_line);
+            border: 1px solid var(--jcx_line);
+        }
+
+        .jcx_brand-cell {
+            display: grid;
+            gap: 14px;
+            place-items: center;
+            padding: 34px 12px;
+            color: var(--jcx_chalk-dim);
+            background: var(--jcx_ink);
+            transition: color 200ms ease, background 200ms ease;
+        }
+
+        .jcx_brand-cell i {
+            font-size: 26px;
+        }
+
+        .jcx_brand-cell span {
+            font-size: 10px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        .jcx_brand-cell:hover {
+            color: var(--jcx_ink);
+            background: var(--jcx_chalk);
+        }
+
+        /* ---------- 结语 ---------- */
+        .jcx_outro {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            align-items: center;
+            gap: 40px;
+            margin: 96px 0 0;
+            padding: 52px clamp(24px, 5vw, 64px);
+            border-top: 1px solid var(--jcx_line);
+            background:
+                radial-gradient(circle at 92% 12%, rgba(255, 74, 31, 0.22), transparent 22rem),
+                var(--jcx_ink-soft);
+        }
+
+        .jcx_outro h2 {
+            margin: 0;
+            font-family: Georgia, serif;
+            font-size: clamp(28px, 3.4vw, 40px);
+            font-weight: 400;
+        }
+
+        .jcx_outro p {
+            margin: 14px 0 0;
+            color: var(--jcx_chalk-dim);
+            font-size: 14px;
+        }
+
+        .jcx_cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 26px;
+            padding: 13px 24px;
+            color: var(--jcx_ink);
+            background: var(--jcx_acid);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            transition: transform 200ms ease, background 200ms ease;
+        }
+
+        .jcx_cta:hover {
+            background: var(--jcx_vermilion);
+            transform: translateX(6px);
+        }
+
+        .jcx_outro-mark {
+            display: grid;
+            place-items: center;
+            font-size: clamp(80px, 12vw, 150px);
+            color: var(--jcx_vermilion);
+            border: 1px solid var(--jcx_line);
+            aspect-ratio: 1;
+        }
+
+        .jcx_foot {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 26px 0 42px;
+            color: var(--jcx_chalk-dim);
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        /* ---------- 入场动画 ---------- */
+        .jcx_rise {
+            opacity: 0;
+            transform: translateY(26px);
+            transition: opacity 700ms ease, transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .jcx_rise.jcx_in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 880px) {
+            .jcx_hero {
+                grid-template-columns: 1fr;
+                padding-top: 64px;
+            }
+
+            .jcx_hero-panel {
+                max-width: 420px;
+            }
+
+            .jcx_specimen,
+            .jcx_outro {
+                grid-template-columns: 1fr;
+            }
+
+            .jcx_section-head {
+                display: block;
+            }
+
+            .jcx_section-note {
+                margin-top: 12px;
+                text-align: left;
+            }
+
+            .jcx_nav {
+                gap: 16px;
+                font-size: 10px;
+            }
+
+            .jcx_nav-tag {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="jcx_head">
+        <div class="jcx_shell jcx_head-inner">
+            <a class="jcx_brand" href="../the-best-ever/index.html">
+                <i class="fa-solid fa-splotch" aria-hidden="true"></i>
+                JCX · Glyph Typecase
+            </a>
+            <nav class="jcx_nav" aria-label="页面导航">
+                <a href="../the-best-ever/index.html">首页</a>
+                <a href="#jcx_gallery">图标墙</a>
+                <a href="#jcx_specimen">字样</a>
+                <a href="./iconfont-2.html">Lucide ↗</a>
+                <span class="jcx_nav-tag">Vol.01 / Font</span>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="jcx_shell">
+            <section class="jcx_hero" aria-labelledby="jcx_page-title">
+                <span class="jcx_hero-figure" aria-hidden="true">Aa</span>
+                <div class="jcx_hero-copy jcx_rise">
+                    <p class="jcx_kicker">Font Awesome 6 · Icon Font Specimen</p>
+                    <h1 class="jcx_title" id="jcx_page-title">
+                        Glyph
+                        <span class="jcx_title-outline">Typecase</span>
+                    </h1>
+                    <p class="jcx_lede">
+                        每一个图标都是一枚字符。字体图标把图形写进字体文件，用字号控制大小、用颜色控制表情——
+                        这是一份关于「字」与「形」的采样册。
+                    </p>
+                    <div class="jcx_stats">
+                        <div class="jcx_stat"><strong>06</strong><span>Styles</span></div>
+                        <div class="jcx_stat"><strong>2000+</strong><span>Glyphs</span></div>
+                        <div class="jcx_stat"><strong>1</strong><span>Font File</span></div>
+                    </div>
+                </div>
+                <aside class="jcx_hero-panel jcx_rise">
+                    <i class="fa-brands fa-font-awesome" aria-hidden="true"></i>
+                    <h2>字体渲染 · 矢量呈现</h2>
+                    <p>
+                        本页所有图形均以 <code>&lt;i&gt;</code> 标签 + 字体类名的方式渲染，
+                        通过本地 <code>@font-face</code> 加载，可任意缩放而不失真。
+                    </p>
+                </aside>
+            </section>
+        </div>
+
+        <div class="jcx_ticker" aria-hidden="true">
+            <div class="jcx_ticker-track">
+                <span><i class="fa-solid fa-star"></i> Solid</span>
+                <span><i class="fa-regular fa-circle"></i> Regular</span>
+                <span><i class="fa-brands fa-figma"></i> Brands</span>
+                <span><i class="fa-solid fa-arrow-trend-up"></i> Scalable</span>
+                <span><i class="fa-solid fa-droplet"></i> Colorable</span>
+                <span><i class="fa-solid fa-bolt"></i> Lightweight</span>
+                <span><i class="fa-solid fa-star"></i> Solid</span>
+                <span><i class="fa-regular fa-circle"></i> Regular</span>
+                <span><i class="fa-brands fa-figma"></i> Brands</span>
+                <span><i class="fa-solid fa-arrow-trend-up"></i> Scalable</span>
+                <span><i class="fa-solid fa-droplet"></i> Colorable</span>
+                <span><i class="fa-solid fa-bolt"></i> Lightweight</span>
+            </div>
+        </div>
+
+        <div class="jcx_shell">
+            <section class="jcx_section" id="jcx_gallery" aria-labelledby="jcx_gallery-title">
+                <div class="jcx_section-head jcx_rise">
+                    <div>
+                        <span class="jcx_section-index">01 / Gallery</span>
+                        <h2 class="jcx_section-title" id="jcx_gallery-title">图标陈列墙</h2>
+                    </div>
+                    <p class="jcx_section-note">按字形风格筛选：实心、线性与品牌标识。悬停可查看图形放大细节。</p>
+                </div>
+
+                <div class="jcx_filters" role="group" aria-label="图标风格筛选">
+                    <button class="jcx_filter jcx_active" type="button" data-jcx-filter="all">全部</button>
+                    <button class="jcx_filter" type="button" data-jcx-filter="solid">Solid 实心</button>
+                    <button class="jcx_filter" type="button" data-jcx-filter="regular">Regular 线性</button>
+                    <button class="jcx_filter" type="button" data-jcx-filter="brands">Brands 品牌</button>
+                </div>
+
+                <div class="jcx_grid" id="jcx_icon-grid">
+                    <article class="jcx_tile" data-jcx-kind="solid">
+                        <i class="fa-solid fa-house jcx_tile-icon" aria-hidden="true"></i>
+                        <div class="jcx_tile-meta"><span class="jcx_tile-name">house</span><span class="jcx_tile-kind">solid</span></div>
+                    </article>
+                    <article class="jcx_tile" data-jcx-kind="solid">
+                        <i class="fa-solid fa-compass jcx_tile-icon" aria-hidden="true"></i>
+                        <div class="jcx_tile-meta"><span class="jcx_tile-name">compass</span><span class="jcx_tile-kind">solid</span></div>
+                    </article>
+                    <article class="jcx_tile" data-jcx-kind="solid">
+                        <i class="fa-solid fa-camera-retro jcx_tile-icon" aria-hidden="true"></i>
+                        <div class="jcx_tile-meta"><span class="jcx_tile-name">camera-retro</span><span class="jcx_tile-kind">solid</span></div>
+                    </article>
+                    <article class="jcx_tile" data-jcx-kind="solid">
+                        <i class="fa-solid fa-music jcx_tile-icon" aria-hidden="true"></i>
+                        <div class="jcx_tile-meta"><span class="jcx_tile-name">music</span><span class="jcx_tile-kind">solid</span></div>
+                    </article>
+                    <article class="jcx_tile" data-jcx-kind="solid">
+                        <i class="fa-solid fa-gem jcx_tile-icon" aria-hidden="true"></i>
+                        <div class="jcx_tile-meta"><span class="jcx_tile-name">gem</span><span class="jcx_tile-kind">solid</span></div>
+                    </article>
+                    <article class="jcx_tile" data-jcx-kind="solid">
+                        <i class="fa-solid fa-rocket jcx_tile-icon" aria-hidden="true"></i>
+                        <div class="jcx_tile-meta"><span class="jcx_tile-name">rocket</span><span class="jcx_tile-kind">solid</span></div>
+                    </article>
+                    <article class="jcx_tile" data-jcx-kind="solid">
+                        <i class="fa-solid fa-feather jcx_tile-icon" aria-hidden="true"></i>
+                        <div class="jcx_tile-meta"><span class="jcx_tile-name">feather</span><span class="jcx_tile-kind">solid</span></div>
+                    </article>
+                    <article class="jcx_tile" data-jcx-kind="solid">
+                        <i class="fa-solid fa-leaf jcx_tile-icon" aria-hidden="true"></i>
+                        <div class="jcx_tile-meta"><span class="jcx_tile-name">leaf</span><span class="jcx_tile-kind">solid</span></div>
+                    </article>
+                    <article class="jcx_tile" data-jcx-kind="regular">
+                        <i class="fa-regular fa-star jcx_tile-icon" aria-hidden="true"></i>
+                        <div class="jcx_tile-meta"><span class="jcx_tile-name">star</span><span class="jcx_tile-kind">regular</span></div>
+                    </article>
+                    <article class="jcx_tile" data-jcx-kind="regular">
+                        <i class="fa-regular fa-heart jcx_tile-icon" aria-hidden="true"></i>
+                        <div class="jcx_tile-meta"><span class="jcx_tile-name">heart</span><span class="jcx_tile-kind">regular</span></div>
+                    </article>
+                    <article class="jcx_tile" data-jcx-kind="regular">
+                        <i class="fa-regular fa-clock jcx_tile-icon" aria-hidden="true"></i>
+                        <div class="jcx_tile-meta"><span class="jcx_tile-name">clock</span><span class="jcx_tile-kind">regular</span></div>
+                    </article>
+                    <article class="jcx_tile" data-jcx-kind="regular">
+                        <i class="fa-regular fa-lightbulb jcx_tile-icon" aria-hidden="true"></i>
+                        <div class="jcx_tile-meta"><span class="jcx_tile-name">lightbulb</span><span class="jcx_tile-kind">regular</span></div>
+                    </article>
+                    <article class="jcx_tile" data-jcx-kind="regular">
+                        <i class="fa-regular fa-circle-check jcx_tile-icon" aria-hidden="true"></i>
+                        <div class="jcx_tile-meta"><span class="jcx_tile-name">circle-check</span><span class="jcx_tile-kind">regular</span></div>
+                    </article>
+                    <article class="jcx_tile" data-jcx-kind="regular">
+                        <i class="fa-regular fa-envelope jcx_tile-icon" aria-hidden="true"></i>
+                        <div class="jcx_tile-meta"><span class="jcx_tile-name">envelope</span><span class="jcx_tile-kind">regular</span></div>
+                    </article>
+                    <article class="jcx_tile" data-jcx-kind="brands">
+                        <i class="fa-brands fa-figma jcx_tile-icon" aria-hidden="true"></i>
+                        <div class="jcx_tile-meta"><span class="jcx_tile-name">figma</span><span class="jcx_tile-kind">brands</span></div>
+                    </article>
+                    <article class="jcx_tile" data-jcx-kind="brands">
+                        <i class="fa-brands fa-github jcx_tile-icon" aria-hidden="true"></i>
+                        <div class="jcx_tile-meta"><span class="jcx_tile-name">github</span><span class="jcx_tile-kind">brands</span></div>
+                    </article>
+                    <article class="jcx_tile" data-jcx-kind="brands">
+                        <i class="fa-brands fa-dribbble jcx_tile-icon" aria-hidden="true"></i>
+                        <div class="jcx_tile-meta"><span class="jcx_tile-name">dribbble</span><span class="jcx_tile-kind">brands</span></div>
+                    </article>
+                    <article class="jcx_tile" data-jcx-kind="brands">
+                        <i class="fa-brands fa-behance jcx_tile-icon" aria-hidden="true"></i>
+                        <div class="jcx_tile-meta"><span class="jcx_tile-name">behance</span><span class="jcx_tile-kind">brands</span></div>
+                    </article>
+                    <article class="jcx_tile" data-jcx-kind="brands">
+                        <i class="fa-brands fa-spotify jcx_tile-icon" aria-hidden="true"></i>
+                        <div class="jcx_tile-meta"><span class="jcx_tile-name">spotify</span><span class="jcx_tile-kind">brands</span></div>
+                    </article>
+                    <article class="jcx_tile" data-jcx-kind="brands">
+                        <i class="fa-brands fa-instagram jcx_tile-icon" aria-hidden="true"></i>
+                        <div class="jcx_tile-meta"><span class="jcx_tile-name">instagram</span><span class="jcx_tile-kind">brands</span></div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="jcx_section" id="jcx_specimen" aria-labelledby="jcx_specimen-title">
+                <div class="jcx_section-head jcx_rise">
+                    <div>
+                        <span class="jcx_section-index">02 / Specimen</span>
+                        <h2 class="jcx_section-title" id="jcx_specimen-title">字形样本</h2>
+                    </div>
+                    <p class="jcx_section-note">同一个字符，在不同字号下保持同样的轮廓精度，这正是字体图标的优势。</p>
+                </div>
+
+                <div class="jcx_specimen jcx_rise">
+                    <div class="jcx_specimen-cell">
+                        <p>Scale / 72 → 132</p>
+                        <i class="fa-solid fa-star jcx_glyph-big" aria-hidden="true"></i>
+                        <p>fa-solid · fa-star</p>
+                    </div>
+                    <div class="jcx_specimen-cell">
+                        <p>Weight / 20 → 64</p>
+                        <div class="jcx_glyph-row">
+                            <i class="fa-solid fa-gem" aria-hidden="true"></i>
+                            <i class="fa-solid fa-gem" aria-hidden="true"></i>
+                            <i class="fa-solid fa-gem" aria-hidden="true"></i>
+                            <i class="fa-solid fa-gem" aria-hidden="true"></i>
+                        </div>
+                        <p>一张字体文件，四种视觉重量</p>
+                    </div>
+                </div>
+
+                <pre class="jcx_code jcx_rise"><b>&lt;!-- 引入本地字体文件 --&gt;</b>
+&lt;link rel="stylesheet" href="./cdn/fontawesome/css/all.min.css"&gt;
+
+<b>&lt;!-- 用字符调用图标 --&gt;</b>
+&lt;i class="<em>fa-solid fa-star</em>"&gt;&lt;/i&gt;
+&lt;i class="<em>fa-brands fa-figma</em>"&gt;&lt;/i&gt;
+
+<b>/* 字号即尺寸，颜色即表情 */</b>
+.jcx_icon { font-size: 32px; color: #ff4a1f; }</pre>
+            </section>
+
+            <section class="jcx_section" aria-labelledby="jcx_brands-title">
+                <div class="jcx_section-head jcx_rise">
+                    <div>
+                        <span class="jcx_section-index">03 / Marks</span>
+                        <h2 class="jcx_section-title" id="jcx_brands-title">品牌标识采样</h2>
+                    </div>
+                    <p class="jcx_section-note">Brands 字重提供统一风格的第三方标识，适合页脚与社交入口。</p>
+                </div>
+
+                <div class="jcx_brands jcx_rise">
+                    <a class="jcx_brand-cell" href="#"><i class="fa-brands fa-github" aria-hidden="true"></i><span>GitHub</span></a>
+                    <a class="jcx_brand-cell" href="#"><i class="fa-brands fa-figma" aria-hidden="true"></i><span>Figma</span></a>
+                    <a class="jcx_brand-cell" href="#"><i class="fa-brands fa-dribbble" aria-hidden="true"></i><span>Dribbble</span></a>
+                    <a class="jcx_brand-cell" href="#"><i class="fa-brands fa-behance" aria-hidden="true"></i><span>Behance</span></a>
+                    <a class="jcx_brand-cell" href="#"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i><span>X</span></a>
+                    <a class="jcx_brand-cell" href="#"><i class="fa-brands fa-spotify" aria-hidden="true"></i><span>Spotify</span></a>
+                </div>
+            </section>
+
+            <section class="jcx_outro jcx_rise">
+                <div>
+                    <h2>字体图标，是一种排版态度。</h2>
+                    <p>下一册：用 SVG 描边构建图形，看看「路径」如何成为另一种创作语言。</p>
+                    <a class="jcx_cta" href="./iconfont-2.html">前往 Lucide 图册 <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                </div>
+                <div class="jcx_outro-mark" aria-hidden="true">
+                    <i class="fa-brands fa-font-awesome"></i>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="jcx_shell jcx_foot">
+        <span>© 2026 JCX · 高级网页设计课堂实践</span>
+        <span>Font Awesome 6.7.2 · 本地 CDN</span>
+    </footer>
+
+    <script>
+        const jcx_filterButtons = document.querySelectorAll("[data-jcx-filter]");
+        const jcx_tiles = document.querySelectorAll(".jcx_tile");
+
+        jcx_filterButtons.forEach(function (jcx_button) {
+            jcx_button.addEventListener("click", function () {
+                const jcx_kind = jcx_button.dataset.jcxFilter;
+                jcx_filterButtons.forEach(function (jcx_item) {
+                    jcx_item.classList.toggle("jcx_active", jcx_item === jcx_button);
+                });
+                jcx_tiles.forEach(function (jcx_tile) {
+                    const jcx_match = jcx_kind === "all" || jcx_tile.dataset.jcxKind === jcx_kind;
+                    jcx_tile.classList.toggle("jcx_hidden", !jcx_match);
+                });
+            });
+        });
+
+        const jcx_revealObserver = new IntersectionObserver(function (jcx_entries) {
+            jcx_entries.forEach(function (jcx_entry) {
+                if (jcx_entry.isIntersecting) {
+                    jcx_entry.target.classList.add("jcx_in");
+                    jcx_revealObserver.unobserve(jcx_entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll(".jcx_rise").forEach(function (jcx_element) {
+            jcx_revealObserver.observe(jcx_element);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="鞠传祥的《高级网页设计》课堂实践目录">
+    <title>高级网页设计 · 课堂实践</title>
+    <style>
+        :root {
+            --ink: #173042;
+            --muted: #61717a;
+            --paper: #f6f3ed;
+            --panel: #fffdf8;
+            --line: #d8ded9;
+            --teal: #147d78;
+            --teal-dark: #0c5f5c;
+            --coral: #e47458;
+            --yellow: #f4c95d;
+            --shadow: 0 18px 50px rgba(23, 48, 66, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at 10% 8%, rgba(244, 201, 93, 0.28), transparent 23rem),
+                radial-gradient(circle at 90% 30%, rgba(20, 125, 120, 0.14), transparent 26rem),
+                var(--paper);
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+            line-height: 1.7;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .page-shell {
+            width: min(1120px, calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 28px 0;
+            color: var(--teal-dark);
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+        }
+
+        .brand-mark {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--coral);
+            box-shadow: 8px 0 0 var(--yellow);
+        }
+
+        .topbar a {
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+        }
+
+        .topbar a:hover {
+            border-color: currentColor;
+        }
+
+        .hero {
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.65fr);
+            gap: 48px;
+            align-items: end;
+            min-height: 410px;
+            padding: 58px clamp(28px, 6vw, 80px);
+            overflow: hidden;
+            color: #fffdf8;
+            background: var(--teal);
+            box-shadow: var(--shadow);
+        }
+
+        .hero::before,
+        .hero::after {
+            position: absolute;
+            content: "";
+            pointer-events: none;
+            border: 1px solid rgba(255, 253, 248, 0.28);
+            border-radius: 50%;
+        }
+
+        .hero::before {
+            width: 340px;
+            height: 340px;
+            right: -110px;
+            top: -150px;
+        }
+
+        .hero::after {
+            width: 210px;
+            height: 210px;
+            right: 80px;
+            bottom: -130px;
+        }
+
+        .hero-content,
+        .hero-note {
+            position: relative;
+            z-index: 1;
+        }
+
+        .eyebrow {
+            margin: 0 0 18px;
+            color: var(--yellow);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+        }
+
+        h1,
+        h2,
+        p {
+            margin-top: 0;
+        }
+
+        h1 {
+            max-width: 720px;
+            margin-bottom: 20px;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(42px, 7vw, 78px);
+            line-height: 1.05;
+            letter-spacing: 0;
+        }
+
+        .hero-intro {
+            max-width: 650px;
+            margin-bottom: 0;
+            color: rgba(255, 253, 248, 0.82);
+            font-size: 17px;
+        }
+
+        .hero-note {
+            padding: 22px 24px;
+            border-left: 3px solid var(--yellow);
+            background: rgba(7, 63, 62, 0.28);
+        }
+
+        .hero-note strong {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--yellow);
+        }
+
+        .hero-note p {
+            margin-bottom: 0;
+            font-size: 14px;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 24px;
+            margin: 78px 0 24px;
+        }
+
+        .section-heading h2 {
+            margin-bottom: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 34px;
+            line-height: 1.2;
+        }
+
+        .section-heading p {
+            max-width: 390px;
+            margin-bottom: 0;
+            color: var(--muted);
+            text-align: right;
+            font-size: 14px;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .course-card {
+            display: flex;
+            flex-direction: column;
+            min-height: 300px;
+            padding: 26px;
+            border: 1px solid var(--line);
+            background: var(--panel);
+            box-shadow: 0 8px 22px rgba(23, 48, 66, 0.05);
+            transition: transform 180ms ease, box-shadow 180ms ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow);
+        }
+
+        .course-number {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 34px;
+            color: var(--teal);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+        }
+
+        .course-icon {
+            display: grid;
+            width: 42px;
+            height: 42px;
+            place-items: center;
+            color: var(--teal-dark);
+            border: 1px solid var(--line);
+            border-radius: 50%;
+            background: #eff5ee;
+        }
+
+        .course-card h3 {
+            margin: 0 0 10px;
+            font-size: 22px;
+        }
+
+        .course-card p {
+            margin-bottom: 24px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .course-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: auto;
+            color: var(--coral);
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .course-link span {
+            transition: transform 180ms ease;
+        }
+
+        .course-link:hover span {
+            transform: translateX(5px);
+        }
+
+        .course-card.future {
+            border-style: dashed;
+            background: rgba(255, 253, 248, 0.45);
+        }
+
+        .future .course-icon {
+            color: var(--coral);
+            background: #fff1e9;
+        }
+
+        .prompt-section {
+            margin: 78px 0 56px;
+            padding: 30px clamp(24px, 5vw, 56px);
+            border-top: 3px solid var(--coral);
+            background: #f0e9dc;
+        }
+
+        .prompt-section h2 {
+            margin-bottom: 18px;
+            font-size: 20px;
+        }
+
+        blockquote {
+            margin: 0;
+            color: #465b60;
+            font-size: 14px;
+            line-height: 2;
+        }
+
+        footer {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 24px 0 34px;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        @media (max-width: 760px) {
+            .page-shell {
+                width: min(100% - 28px, 620px);
+            }
+
+            .topbar {
+                padding: 20px 0;
+            }
+
+            .topbar > a {
+                display: none;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 28px;
+                min-height: auto;
+                padding: 42px 26px;
+            }
+
+            h1 {
+                font-size: clamp(40px, 13vw, 64px);
+            }
+
+            .section-heading {
+                display: block;
+                margin-top: 52px;
+            }
+
+            .section-heading p {
+                margin-top: 12px;
+                text-align: left;
+            }
+
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .course-card {
+                min-height: 260px;
+            }
+
+            .prompt-section {
+                margin-top: 52px;
+            }
+
+            footer {
+                display: block;
+            }
+
+            footer span {
+                display: block;
+                margin-top: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-shell">
+        <header class="topbar">
+            <div class="brand-mark"><span class="brand-dot" aria-hidden="true"></span>鞠传祥 · 课堂实践</div>
+            <a href="#course-directory">浏览课堂目录</a>
+        </header>
+
+        <main>
+            <section class="hero" aria-labelledby="page-title">
+                <div class="hero-content">
+                    <p class="eyebrow">ADVANCED WEB DESIGN / 2026</p>
+                    <h1 id="page-title">高级网页设计</h1>
+                    <p class="hero-intro">记录每一次布局、图标与交互的练习，把课堂里的代码整理成一份可以持续生长的网页作品集。</p>
+                </div>
+                <aside class="hero-note">
+                    <strong>Practice archive</strong>
+                    <p>从基础布局出发，逐步探索网页结构、视觉表达与前端实现。</p>
+                </aside>
+            </section>
+
+            <section id="course-directory" aria-labelledby="directory-title">
+                <div class="section-heading">
+                    <h2 id="directory-title">课堂目录</h2>
+                    <p>当前收录 7 个实践页面，新的模块会继续加入这里。</p>
+                </div>
+
+                <div class="course-grid">
+                    <article class="course-card">
+                        <div class="course-number">01 / LAYOUT <span class="course-icon" aria-hidden="true">↔</span></div>
+                        <h3>Flex 布局复习</h3>
+                        <p>通过导航、等分、卡片网格和侧边栏案例，复习 Flex 布局的核心用法。</p>
+                        <a class="course-link" href="./flex布局复习.html">进入实践 <span aria-hidden="true">→</span></a>
+                    </article>
+
+                    <article class="course-card">
+                        <div class="course-number">02 / ICON <span class="course-icon" aria-hidden="true">◇</span></div>
+                        <h3>SVG 图标</h3>
+                        <p>练习 SVG 图标的组合、状态切换与徽标表现，感受图形化界面的细节。</p>
+                        <a class="course-link" href="./svg.html">进入实践 <span aria-hidden="true">→</span></a>
+                    </article>
+
+                    <article class="course-card">
+                        <div class="course-number">03 / FONT <span class="course-icon" aria-hidden="true">Aa</span></div>
+                        <h3>字体图标</h3>
+                        <p>查看字体图标示例页面，了解图标字体资源与网页图标展示方式。</p>
+                        <a class="course-link" href="./font/demo_index.html">进入实践 <span aria-hidden="true">→</span></a>
+                    </article>
+
+                    <article class="course-card">
+                        <div class="course-number">04 / GLYPH <span class="course-icon" aria-hidden="true">FA</span></div>
+                        <h3>Font Awesome 字体图标</h3>
+                        <p>以字体方式渲染图标的艺术图册，支持风格筛选与字号缩放，感受「字符即图形」。</p>
+                        <a class="course-link" href="../iconfont-1.html">进入实践 <span aria-hidden="true">→</span></a>
+                    </article>
+
+                    <article class="course-card">
+                        <div class="course-number">05 / VECTOR <span class="course-icon" aria-hidden="true">SVG</span></div>
+                        <h3>Lucide SVG 图标</h3>
+                        <p>用描边路径构建图标的矢量工坊，可实时调整尺寸与线宽，探索 SVG 的原生表达。</p>
+                        <a class="course-link" href="../iconfont-2.html">进入实践 <span aria-hidden="true">→</span></a>
+                    </article>
+
+                    <article class="course-card">
+                        <div class="course-number">06 / TABBAR <span class="course-icon" aria-hidden="true">字</span></div>
+                        <h3>字体图标底部导航</h3>
+                        <p>移动端固定自适应宽度下导航，四个导航项带数字徽章与红点，使用 iconfont 字体渲染。</p>
+                        <a class="course-link" href="../iconfont-3.html">进入实践 <span aria-hidden="true">→</span></a>
+                    </article>
+
+                    <article class="course-card">
+                        <div class="course-number">07 / SYMBOL <span class="course-icon" aria-hidden="true">图</span></div>
+                        <h3>SVG 底部导航</h3>
+                        <p>同一套下导航改用 symbol 雪碧图，用 use 引用图标，同样带徽章与红点。</p>
+                        <a class="course-link" href="../iconfont-4.html">进入实践 <span aria-hidden="true">→</span></a>
+                    </article>
+
+                    <article class="course-card future">
+                        <div class="course-number">08 / COMING SOON <span class="course-icon" aria-hidden="true">+</span></div>
+                        <h3>后续模块</h3>
+                        <p>更多网页结构、CSS 效果与交互实践将在课堂推进后陆续加入。</p>
+                        <span class="course-link">待更新 <span aria-hidden="true">···</span></span>
+                    </article>
+                </div>
+            </section>
+
+            <section class="prompt-section" aria-labelledby="prompt-title">
+                <h2 id="prompt-title">本页面创建提示词</h2>
+                <blockquote>创建一个新页面，包括本目录下的所有网页的超链接，使用原生代码，不使用cdn，新页面名称为index.html，主题为鞠传祥的《高级网页设计》课堂实践，美化页面，课堂目录中包含flex复习、字体图标、其余模块后续在增加。页面中包括本提示词。</blockquote>
+            </section>
+        </main>
+
+        <footer>
+            <span>鞠传祥的《高级网页设计》课堂实践</span>
+            <span>Keep learning · Keep building</span>
+        </footer>
+    </div>
+</body>
+
+</html>

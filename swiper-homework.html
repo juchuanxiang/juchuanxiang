@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swiper 作业三 · 完成记录 · 鞠传祥</title>
+<!-- 鞠传祥：Swiper 作业三完成记录页——提示词迭代 / creative 仿写 / 综合创作 -->
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background:#f6f8fc;color:#1f2937;line-height:1.8}
+  .jcx_wrap{max-width:920px;margin:0 auto;padding:40px 20px 60px}
+
+  /* 鞠传祥：页头 */
+  .jcx_head{background:linear-gradient(135deg,#0f2b5b,#1d5bbf);border-radius:20px;padding:36px 38px;color:#fff;margin-bottom:26px;box-shadow:0 12px 30px rgba(15,43,91,.3)}
+  .jcx_badge{display:inline-block;padding:5px 14px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);font-size:13px;letter-spacing:2px;margin-bottom:14px}
+  .jcx_head h1{font-size:28px;letter-spacing:1px}
+  .jcx_head h1 b{color:#ffd166}
+  .jcx_head p{margin-top:10px;font-size:14px;color:#d9e3f5}
+
+  /* 鞠传祥：章节卡 */
+  .jcx_sec{background:#fff;border-radius:18px;padding:28px 30px;margin-bottom:24px;border:1px solid #e8ecf5;box-shadow:0 4px 14px rgba(31,41,55,.06);position:relative;overflow:hidden}
+  .jcx_sec::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(#0f2b5b,#1d5bbf)}
+  .jcx_sec h2{font-size:20px;color:#111827;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+  .jcx_no{flex:none;width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#0f2b5b,#1d5bbf);color:#fff;font-size:18px;font-weight:bold;display:inline-flex;align-items:center;justify-content:center}
+  .jcx_sec h3{font-size:15.5px;color:#0f2b5b;margin:18px 0 8px}
+  .jcx_sec p{font-size:14.5px;color:#374151;margin-bottom:10px}
+
+  /* 鞠传祥：提示词引用块 */
+  .jcx_prompt{background:#fffbea;border:1px solid #fde68a;border-radius:12px;padding:14px 18px;font-size:14px;color:#7c5e10;margin:10px 0;line-height:2}
+  .jcx_answer{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:14px 18px;margin:10px 0}
+  .jcx_verdict{background:#eff6ff;border-left:4px solid #1d5bbf;border-radius:8px;padding:12px 16px;font-size:14px;color:#1e40af;margin:10px 0}
+
+  pre{background:#0f172a;color:#e2e8f0;border-radius:12px;padding:18px 20px;overflow-x:auto;font-family:Consolas,monospace;font-size:13px;line-height:1.7;margin:10px 0}
+  pre .jcx_c{color:#64748b}
+  pre .jcx_k{color:#7dd3fc}
+  code{background:#eef2ff;color:#1d4ed8;padding:1px 7px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+  pre code{background:none;color:inherit;padding:0}
+
+  /* 鞠传祥：答辩表 */
+  .jcx_table{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0}
+  .jcx_table th{background:#0f2b5b;color:#fff;padding:10px 14px;text-align:left;font-weight:normal}
+  .jcx_table td{border:1px solid #e8ecf5;padding:10px 14px;color:#374151;vertical-align:top}
+  .jcx_table tr:nth-child(even) td{background:#f8fafc}
+
+  .jcx_back{text-align:center;margin-top:28px}
+  .jcx_back a{display:inline-block;text-decoration:none;color:#0f2b5b;font-size:14.5px;font-weight:bold;background:#fff;border:1px solid #dbe4ff;border-radius:999px;padding:10px 26px;transition:transform .2s,box-shadow .2s}
+  .jcx_back a:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(15,43,91,.15)}
+
+  footer{text-align:center;margin-top:34px;color:#9ca3af;font-size:13px;line-height:2}
+</style>
+</head>
+<body>
+<div class="jcx_wrap">
+
+  <div class="jcx_head">
+    <span class="jcx_badge">高 级 网 页 设 计 · 作 业 三</span>
+    <h1>Swiper 作业三 · <b>完成记录</b></h1>
+    <p>鞠传祥 · 2026-11-10 ｜ 任务一 提示词工程师 · 任务二 creative 仿写 · 任务三 综合创作</p>
+  </div>
+
+  <!-- 任务一 -->
+  <div class="jcx_sec">
+    <h2><span class="jcx_no">1</span>提示词工程师（迭代 2 轮）</h2>
+    <p>目标：不写代码，只用提示词让 AI 生成 <code>new Swiper('#wySw4', {...})</code> 配置——① 无缝循环 ② 3.2 秒自动翻页且手动操作后不停止 ③ 圆点可点击 ④ 初始效果 cube。</p>
+
+    <h3>第 1 轮提示词（故意留缺口）</h3>
+    <div class="jcx_prompt">帮我写一个 Swiper 11 的初始化配置，挂载在 <code>#wySw4</code> 上，变量名 <code>jcx_sw4</code>。要求：① 无缝循环；② 每 3.2 秒自动翻页；③ 底部圆点分页器可以点击跳转，分页器元素是 <code>#wyPag4</code>；④ 初始效果为 cube 立方体效果。</div>
+
+    <h3>第 1 轮 AI 回答</h3>
+    <pre><code><span class="jcx_k">const</span> jcx_sw4 = <span class="jcx_k">new</span> Swiper(<span class="jcx_c">'#wySw4'</span>, {
+  loop: <span class="jcx_k">true</span>,                 <span class="jcx_c">// ① 无缝循环</span>
+  effect: <span class="jcx_c">'cube'</span>,             <span class="jcx_c">// ④ 初始效果 cube</span>
+  autoplay: { delay: <span class="jcx_k">3200</span> },  <span class="jcx_c">// ② 每 3.2 秒自动翻页</span>
+  pagination: {
+    el: <span class="jcx_c">'#wyPag4'</span>,            <span class="jcx_c">// ③ 圆点挂载元素</span>
+    clickable: <span class="jcx_k">true</span>           <span class="jcx_c">// ③ 圆点可点击</span>
+  }
+});</code></pre>
+    <div class="jcx_verdict">❌ 验证不通过：轮播能循环、能自动翻页、圆点能点，但<b>用手拖动一次之后自动播放就停了</b>。一句话结论：提示词漏掉"手动操作后不停止"这个约束，AI 就按默认值 <code>disableOnInteraction: true</code> 生成了。</div>
+
+    <h3>第 2 轮提示词（补全约束）</h3>
+    <div class="jcx_prompt">帮我写一个 Swiper 11 的初始化配置，挂载在 <code>#wySw4</code> 上，变量名 <code>jcx_sw4</code>。要求：① 无缝循环；② 每 3.2 秒自动翻页，<b>并且用户手动拖动或点击之后，自动播放不能停，要继续</b>；③ 底部圆点分页器可以点击跳转，分页器元素是 <code>#wyPag4</code>；④ 初始效果为 cube 立方体效果。</div>
+
+    <h3>第 2 轮 AI 回答</h3>
+    <pre><code><span class="jcx_k">const</span> jcx_sw4 = <span class="jcx_k">new</span> Swiper(<span class="jcx_c">'#wySw4'</span>, {
+  loop: <span class="jcx_k">true</span>,                 <span class="jcx_c">// ① 无缝循环</span>
+  effect: <span class="jcx_c">'cube'</span>,             <span class="jcx_c">// ④ 初始效果 cube</span>
+  speed: <span class="jcx_k">800</span>,
+  autoplay: {
+    delay: <span class="jcx_k">3200</span>,              <span class="jcx_c">// ② 每 3.2 秒自动翻页</span>
+    disableOnInteraction: <span class="jcx_k">false</span> <span class="jcx_c">// ② 手动操作后不停止</span>
+  },
+  pagination: {
+    el: <span class="jcx_c">'#wyPag4'</span>,            <span class="jcx_c">// ③ 圆点挂载元素</span>
+    clickable: <span class="jcx_k">true</span>           <span class="jcx_c">// ③ 圆点可点击</span>
+  }
+});</code></pre>
+    <div class="jcx_verdict">✅ 验证通过：拖动一轮松手后约 3.2 秒轮播继续自动翻页，cube 翻转正常，圆点可跳转。一句话结论：把"手动操作后不停止"翻译成参数语言 <code>disableOnInteraction: false</code> 写进提示词后，AI 一次生成到位。</div>
+
+    <h3>答辩抽问准备</h3>
+    <table class="jcx_table">
+      <tr><th style="width:42%">可能的提问</th><th>我的回答</th></tr>
+      <tr><td>两轮提示词差在哪？</td><td>第 2 轮多了"手动操作后自动播放不停止"这一约束，对应参数 <code>disableOnInteraction: false</code></td></tr>
+      <tr><td>为什么不能只写"自动播放"？</td><td>Swiper 默认用户一交互就停自动播放（默认 true），不写清楚 AI 不会主动加</td></tr>
+      <tr><td>无缝循环是哪个参数？</td><td><code>loop: true</code>，Swiper 会克隆首尾 slide 实现无缝</td></tr>
+      <tr><td>圆点可点击的关键？</td><td><code>pagination</code> 里既要 <code>el</code> 指定元素，又要 <code>clickable: true</code>，漏一个都点不了</td></tr>
+      <tr><td>心得体会？</td><td>把"人话需求"逐条翻译成组件的参数语言，约束越明确，AI 返工越少</td></tr>
+    </table>
+  </div>
+
+  <!-- 任务二 -->
+  <div class="jcx_sec">
+    <h2><span class="jcx_no">2</span>creative 电影墙仿写</h2>
+    <p>参考官方示例 <code>swiper/demo/257-effect-creative.html</code>，为演示四新增第 7 个按钮「creative 电影墙」。核心配置：</p>
+    <pre><code>creativeEffect: {
+  limitProgress: <span class="jcx_k">2</span>,
+  prev: {  <span class="jcx_c">// 上一张：缩小左移并带角度</span>
+    shadow: <span class="jcx_k">true</span>,
+    translate: [<span class="jcx_c">'-120%'</span>, <span class="jcx_k">0</span>, <span class="jcx_k">-300</span>],
+    rotate: [<span class="jcx_k">0</span>, <span class="jcx_k">0</span>, <span class="jcx_k">-10</span>],
+    scale: <span class="jcx_k">0.7</span>,
+    opacity: <span class="jcx_k">0.6</span>
+  },
+  next: {  <span class="jcx_c">// 下一张：放大右移进场</span>
+    shadow: <span class="jcx_k">true</span>,
+    translate: [<span class="jcx_c">'120%'</span>, <span class="jcx_k">0</span>, <span class="jcx_k">0</span>],
+    rotate: [<span class="jcx_k">0</span>, <span class="jcx_k">0</span>, <span class="jcx_k">10</span>],
+    scale: <span class="jcx_k">1.15</span>
+  }
+}</code></pre>
+
+    <h3>用自己的话解释 prev / next 的 transform 各控制什么</h3>
+    <p><b>prev 控制的是"当前这张离开时变成什么样"</b>：翻页瞬间，正在展示的这张 slide 会朝着 prev 描述的状态过渡——<code>translate: ['-120%', 0, -300]</code> 让它向左移出屏幕并向后退（z 轴 -300 产生纵深），<code>rotate: [0, 0, -10]</code> 让它带一个逆时针 10° 的倾斜角，<code>scale: 0.7</code> 让它缩小到七成，<code>opacity: 0.6</code> 让它变淡。合起来就是"上一张缩小、左移、带角度地退场"。</p>
+    <p><b>next 控制的是"下一张进场前站在哪"</b>：还没轮到的 slide 停在 next 描述的位置待命——<code>translate: ['120%', 0, 0]</code> 让它站在屏幕右侧之外，<code>scale: 1.15</code> 让它以放大 15% 的姿态准备，<code>rotate: [0, 0, 10]</code> 带顺时针 10 度角。翻页时它从这个状态渐变回正常大小和位置，看起来就是"下一张放大着从右侧进场"。</p>
+    <div class="jcx_verdict">一句话总结：<b>prev 决定旧照片的退场姿势，next 决定新照片的入场起点</b>，中间的过渡动画由 Swiper 按 speed 自动补间。</div>
+  </div>
+
+  <!-- 任务三 -->
+  <div class="jcx_sec">
+    <h2><span class="jcx_no">3</span>综合创作</h2>
+
+    <h3>① 第六件展品：爱达·魔都号</h3>
+    <p>图片由 AI 生成（16:9 横版），保存为 <code>swiper-imgs/adora_1.jpg</code>；4 个演示台（#wySw1 ~ #wySw4）各新增一张结构完整的 slide（img + 标题 + 简介）。展品文案：<b>爱达·魔都号 —— 2024 年 1 月首航 · 首艘国产大型邮轮</b>。</p>
+
+    <h3>② 课堂没讲过的 Swiper 能力：keyboard 键盘控制</h3>
+    <p>加载在演示四 <code>#wySw4</code> 上（课堂讲了 loop / autoplay / pagination / navigation / effect，没讲键盘模块）：</p>
+    <pre><code>keyboard: {
+  enabled: <span class="jcx_k">true</span>,        <span class="jcx_c">// 开启键盘控制</span>
+  onlyInViewport: <span class="jcx_k">true</span>  <span class="jcx_c">// 只在轮播进入可视区域时响应，避免抢全局按键</span>
+}</code></pre>
+    <div class="jcx_verdict">✅ 验证：点击演示四轮播区域后，按键盘 ← / → 方向键即可前后翻页，与自动播放、圆点、效果切换互不冲突。</div>
+  </div>
+
+  <div class="jcx_back">
+    <a href="swiper-task.html">← 去看 Swiper 光影展</a>　<a href="./the-best-ever/index.html">返回课堂实践中心 →</a>
+  </div>
+
+  <footer>Swiper 作业三 · 完成记录 · 鞠传祥 · 高级网页设计 · 2026-2027-1</footer>
+</div>
+</body>
+</html>

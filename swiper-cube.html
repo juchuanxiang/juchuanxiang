@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swiper cube 练习 · 鞠传祥</title>
+<!-- 鞠传祥：Swiper cube 作业页，组件库走 CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<style>
+  /* 鞠传祥：简约风格——白底细线，只保留必要层次 */
+  *{margin:0;padding:0;box-sizing:border-box}
+  .jcx_page{min-height:100vh;padding:64px 20px 80px;background:#fbfbfc;color:#22272e;
+    font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .jcx_shell{max-width:820px;margin:0 auto}
+
+  /* 鞠传祥：顶部返回与署名 */
+  .jcx_top{display:flex;justify-content:space-between;align-items:center;margin-bottom:38px;font-size:13px;color:#8b949e}
+  .jcx_top a{color:inherit;text-decoration:none;border-bottom:1px solid #dfe4ea;padding-bottom:2px;transition:color .2s,border-color .2s}
+  .jcx_top a:hover{color:#22272e;border-color:#22272e}
+
+  /* 鞠传祥：标题区 */
+  .jcx_title{font-size:26px;font-weight:600;letter-spacing:.5px}
+  .jcx_sub{margin-top:12px;font-size:14px;line-height:1.9;color:#6b7684}
+
+  /* 鞠传祥：每个演示区的小标签 */
+  .jcx_demo{margin-top:34px}
+  .jcx_tag{margin-bottom:10px;font-size:12.5px;letter-spacing:.5px;color:#8b949e}
+  .jcx_tag b{color:#22272e;font-weight:600}
+
+  /* 鞠传祥：轮播容器 */
+  .jcx_stage{padding:16px;border:1px solid #e8ebef;border-radius:14px;background:#fff}
+  .jcx_stage .swiper{width:100%;border-radius:10px;overflow:hidden}
+  .jcx_stage .swiper-slide{position:relative;height:300px;background:#eef1f5}
+  .jcx_stage .swiper-slide img{display:block;width:100%;height:100%;object-fit:cover}
+
+  /* 鞠传祥：zoom 演示——缩放容器内的图片同样满铺，放大时不出现留白 */
+  .jcx_stage .swiper-zoom-container>img{width:100%;height:100%;object-fit:cover}
+
+  /* 鞠传祥：图片说明条 */
+  .jcx_cap{position:absolute;left:0;right:0;bottom:0;padding:30px 18px 14px;color:#fff;
+    background:linear-gradient(transparent,rgba(12,18,28,.78))}
+  .jcx_cap h3{font-size:16px;font-weight:600;letter-spacing:.5px}
+  .jcx_cap p{margin-top:4px;font-size:12.5px;color:#d5dde8}
+
+  /* 鞠传祥：分页圆点配色，cube 的 3D 图层会盖住分页器，需提升层级 */
+  .jcx_stage .swiper-pagination{bottom:12px;z-index:20}
+  .jcx_stage .swiper-pagination-bullet{background:#fff;opacity:.45}
+  .jcx_stage .swiper-pagination-bullet-active{background:#fff;opacity:1;width:18px;border-radius:4px}
+
+  /* 鞠传祥：配置说明区 */
+  .jcx_note{margin-top:34px}
+  .jcx_note h2{font-size:15px;font-weight:600;color:#22272e;margin-bottom:12px}
+  .jcx_list{list-style:none;border-top:1px solid #e8ebef}
+  .jcx_list li{display:flex;gap:14px;padding:12px 2px;border-bottom:1px solid #e8ebef;font-size:13.5px;color:#4a5560;line-height:1.8}
+  .jcx_list li b{flex:none;width:18px;color:#9aa4af;font-weight:600}
+  .jcx_list code{background:#f1f3f6;color:#3b4652;padding:1px 6px;border-radius:4px;font-family:Consolas,monospace;font-size:12.5px}
+
+  /* 鞠传祥：第二段说明文字 */
+  .jcx_diff{margin-top:20px;font-size:13.5px;line-height:1.9;color:#4a5560}
+  .jcx_diff code{background:#f1f3f6;color:#3b4652;padding:1px 6px;border-radius:4px;font-family:Consolas,monospace;font-size:12.5px}
+
+  pre{margin-top:14px;padding:18px 20px;border:1px solid #e8ebef;border-radius:10px;background:#fff;
+    font-family:Consolas,monospace;font-size:13px;line-height:1.85;color:#3b4652;overflow-x:auto}
+  pre .jcx_c{color:#9aa4af}
+  pre .jcx_k{color:#1d5bbf}
+
+  .jcx_foot{margin-top:44px;padding-top:18px;border-top:1px solid #e8ebef;font-size:12.5px;color:#9aa4af;text-align:center}
+
+  @media (max-width:640px){
+    .jcx_page{padding:40px 16px 60px}
+    .jcx_title{font-size:22px}
+    .jcx_stage{padding:10px}
+    .jcx_stage .swiper-slide{height:210px}
+  }
+</style>
+</head>
+<body>
+<div class="jcx_page">
+  <div class="jcx_shell">
+
+    <div class="jcx_top">
+      <a href="./the-best-ever/index.html">← 返回课堂实践中心</a>
+      <span>鞠传祥 · 高级网页设计</span>
+    </div>
+
+    <h1 class="jcx_title">Swiper 效果练习</h1>
+    <p class="jcx_sub">三个实例分别演示 cube 立方体、creative 电影墙与 zoom 双击缩放；都开启无缝循环与可点击圆点，前两个保持 3.2 秒自动翻页且手动操作后不停止。</p>
+
+    <!-- 鞠传祥：演示一 · cube 立方体，id 按作业要求使用 wyjcxSw4 -->
+    <div class="jcx_demo">
+      <p class="jcx_tag"><b>演示一</b> · cube 立方体（初始效果）</p>
+      <div class="jcx_stage">
+      <div class="swiper" id="wyjcxSw4">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="swiper-imgs/tiangong_1.jpg" alt="天宫空间站"><div class="jcx_cap"><h3>天宫空间站</h3><p>2022 年全面建成 · 中国人的太空家园</p></div></div>
+          <div class="swiper-slide"><img src="swiper-imgs/fuxing_1.jpg" alt="复兴号动车组"><div class="jcx_cap"><h3>复兴号动车组</h3><p>350 km/h · 世界商业运营最高时速</p></div></div>
+          <div class="swiper-slide"><img src="swiper-imgs/c919_1.jpg" alt="C919大飞机"><div class="jcx_cap"><h3>C919 大飞机</h3><p>2023 年商业首航 · 国产干线客机</p></div></div>
+          <div class="swiper-slide"><img src="swiper-imgs/fendouzhe_1.jpg" alt="奋斗者号"><div class="jcx_cap"><h3>奋斗者号</h3><p>10909 米 · 坐底马里亚纳海沟</p></div></div>
+          <div class="swiper-slide"><img src="swiper-imgs/fast_1.jpg" alt="中国天眼"><div class="jcx_cap"><h3>中国天眼 FAST</h3><p>500 米口径 · 世界最大单口径射电望远镜</p></div></div>
+          <div class="swiper-slide"><img src="swiper-imgs/adora_1.jpg" alt="爱达·魔都号"><div class="jcx_cap"><h3>爱达·魔都号</h3><p>2024 年 1 月首航 · 首艘国产大型邮轮</p></div></div>
+        </div>
+        <!-- 鞠传祥：圆点分页器，点击可跳转 -->
+        <div class="swiper-pagination" id="wyjcxPag4"></div>
+      </div>
+      </div>
+    </div>
+
+    <!-- 鞠传祥：演示二 · creative 电影墙，同样复用 6 张展品图片 -->
+    <div class="jcx_demo">
+      <p class="jcx_tag"><b>演示二</b> · creative 电影墙（上一张缩小左移带角度 · 下一张放大右移进场）</p>
+      <div class="jcx_stage">
+        <div class="swiper" id="wyjcxSw5">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="swiper-imgs/tiangong_1.jpg" alt="天宫空间站"><div class="jcx_cap"><h3>天宫空间站</h3><p>2022 年全面建成 · 中国人的太空家园</p></div></div>
+            <div class="swiper-slide"><img src="swiper-imgs/fuxing_1.jpg" alt="复兴号动车组"><div class="jcx_cap"><h3>复兴号动车组</h3><p>350 km/h · 世界商业运营最高时速</p></div></div>
+            <div class="swiper-slide"><img src="swiper-imgs/c919_1.jpg" alt="C919大飞机"><div class="jcx_cap"><h3>C919 大飞机</h3><p>2023 年商业首航 · 国产干线客机</p></div></div>
+            <div class="swiper-slide"><img src="swiper-imgs/fendouzhe_1.jpg" alt="奋斗者号"><div class="jcx_cap"><h3>奋斗者号</h3><p>10909 米 · 坐底马里亚纳海沟</p></div></div>
+            <div class="swiper-slide"><img src="swiper-imgs/fast_1.jpg" alt="中国天眼"><div class="jcx_cap"><h3>中国天眼 FAST</h3><p>500 米口径 · 世界最大单口径射电望远镜</p></div></div>
+            <div class="swiper-slide"><img src="swiper-imgs/adora_1.jpg" alt="爱达·魔都号"><div class="jcx_cap"><h3>爱达·魔都号</h3><p>2024 年 1 月首航 · 首艘国产大型邮轮</p></div></div>
+          </div>
+          <!-- 鞠传祥：圆点分页器，点击可跳转 -->
+          <div class="swiper-pagination" id="wyjcxPag5"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 鞠传祥：演示三 · zoom 双击缩放，需求方指定的课堂外能力 -->
+    <div class="jcx_demo">
+      <p class="jcx_tag"><b>演示三</b> · zoom 双击缩放（双击图片放大 3 倍 · 再次双击还原）</p>
+      <div class="jcx_stage">
+        <div class="swiper" id="wyjcxSw6">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="swiper-zoom-container"><img class="swiper-zoom-target" src="swiper-imgs/tiangong_1.jpg" alt="天宫空间站"></div>
+              <div class="jcx_cap"><h3>天宫空间站</h3><p>双击图片放大 · 拖动查看细节</p></div>
+            </div>
+            <div class="swiper-slide">
+              <div class="swiper-zoom-container"><img class="swiper-zoom-target" src="swiper-imgs/fuxing_1.jpg" alt="复兴号动车组"></div>
+              <div class="jcx_cap"><h3>复兴号动车组</h3><p>双击图片放大 · 拖动查看细节</p></div>
+            </div>
+            <div class="swiper-slide">
+              <div class="swiper-zoom-container"><img class="swiper-zoom-target" src="swiper-imgs/c919_1.jpg" alt="C919大飞机"></div>
+              <div class="jcx_cap"><h3>C919 大飞机</h3><p>双击图片放大 · 拖动查看细节</p></div>
+            </div>
+            <div class="swiper-slide">
+              <div class="swiper-zoom-container"><img class="swiper-zoom-target" src="swiper-imgs/fendouzhe_1.jpg" alt="奋斗者号"></div>
+              <div class="jcx_cap"><h3>奋斗者号</h3><p>双击图片放大 · 拖动查看细节</p></div>
+            </div>
+            <div class="swiper-slide">
+              <div class="swiper-zoom-container"><img class="swiper-zoom-target" src="swiper-imgs/fast_1.jpg" alt="中国天眼"></div>
+              <div class="jcx_cap"><h3>中国天眼 FAST</h3><p>双击图片放大 · 拖动查看细节</p></div>
+            </div>
+            <div class="swiper-slide">
+              <div class="swiper-zoom-container"><img class="swiper-zoom-target" src="swiper-imgs/adora_1.jpg" alt="爱达·魔都号"></div>
+              <div class="jcx_cap"><h3>爱达·魔都号</h3><p>双击图片放大 · 拖动查看细节</p></div>
+            </div>
+          </div>
+          <!-- 鞠传祥：圆点分页器，点击可跳转 -->
+          <div class="swiper-pagination" id="wyjcxPag6"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 鞠传祥：配置逐条对照 -->
+    <div class="jcx_note">
+      <h2>配置说明</h2>
+      <ul class="jcx_list">
+        <li><b>①</b><span>无缝循环：<code>loop: true</code>，最后一张往后翻会回到第一张。</span></li>
+        <li><b>②</b><span>3.2 秒自动翻页且手动操作后不停止：<code>autoplay.delay: 3200</code> + <code>disableOnInteraction: false</code>。</span></li>
+        <li><b>③</b><span>圆点分页器可点击：<code>pagination.el: '#wyjcxPag4'</code> + <code>clickable: true</code>。</span></li>
+        <li><b>④</b><span>初始效果为 cube：<code>effect: 'cube'</code>，配合 <code>cubeEffect</code> 调整立体阴影。</span></li>
+      </ul>
+
+<pre><span class="jcx_k">const</span> jcx_sw4 = <span class="jcx_k">new</span> Swiper(<span class="jcx_k">'#wyjcxSw4'</span>, {
+  loop: <span class="jcx_k">true</span>,              <span class="jcx_c">// ① 无缝循环</span>
+  effect: <span class="jcx_k">'cube'</span>,          <span class="jcx_c">// ④ 初始效果 cube</span>
+  speed: 700,
+  cubeEffect: {
+    shadow: <span class="jcx_k">true</span>,
+    slideShadows: <span class="jcx_k">true</span>,
+    shadowOffset: 20,
+    shadowScale: 0.94
+  },
+  autoplay: {
+    delay: 3200,           <span class="jcx_c">// ② 每 3.2 秒翻页</span>
+    disableOnInteraction: <span class="jcx_k">false</span> <span class="jcx_c">// ② 手动操作后不停止</span>
+  },
+  pagination: {
+    el: <span class="jcx_k">'#wyjcxPag4'</span>,    <span class="jcx_c">// ③ 圆点挂载元素</span>
+    clickable: <span class="jcx_k">true</span>       <span class="jcx_c">// ③ 圆点可点击</span>
+  }
+});</pre>
+
+      <p class="jcx_diff">演示二四项配置原样保留，只把 <code>effect</code> 换成 <code>'creative'</code>，再补一段 <code>creativeEffect</code> 描述前后两张的站位：</p>
+
+<pre>creativeEffect: {
+  limitProgress: 2,
+  prev: {                        <span class="jcx_c">// 上一张：缩小左移并带角度退场</span>
+    shadow: <span class="jcx_k">true</span>,
+    translate: [<span class="jcx_k">'-120%'</span>, 0, <span class="jcx_k">-300</span>],
+    rotate: [0, 0, <span class="jcx_k">-10</span>],
+    scale: <span class="jcx_k">0.7</span>,
+    opacity: <span class="jcx_k">0.6</span>
+  },
+  next: {                        <span class="jcx_c">// 下一张：放大从右侧进场</span>
+    shadow: <span class="jcx_k">true</span>,
+    translate: [<span class="jcx_k">'120%'</span>, 0, 0],
+    rotate: [0, 0, <span class="jcx_k">10</span>],
+    scale: <span class="jcx_k">1.15</span>
+  }
+}</pre>
+
+      <p class="jcx_diff">演示三用的是 Swiper 的 <code>zoom</code> 模块：slide 里先包一层 <code>.swiper-zoom-container</code>，双击图片放大，再次双击还原；放大状态下可拖动查看细节，此时翻页不会误触发。</p>
+
+<pre>zoom: {
+  maxRatio: <span class="jcx_k">3</span>,       <span class="jcx_c">// 最多放大到 3 倍</span>
+  minRatio: <span class="jcx_k">1</span>,
+  toggle: <span class="jcx_k">true</span>     <span class="jcx_c">// 双击切换放大 / 还原</span>
+}</pre>
+    </div>
+
+    <div class="jcx_foot">Swiper 效果练习 · 鞠传祥 · 高级网页设计 2026-2027-1</div>
+  </div>
+</div>
+
+<script>
+  // 鞠传祥：四项要求合并到一个实例里
+  const jcx_sw4 = new Swiper('#wyjcxSw4', {
+    loop: true,                       // ① 无缝循环
+    effect: 'cube',                   // ④ 初始效果 cube
+    speed: 700,
+    cubeEffect: {
+      shadow: true,
+      slideShadows: true,
+      shadowOffset: 20,
+      shadowScale: 0.94
+    },
+    autoplay: {
+      delay: 3200,                    // ② 每 3.2 秒自动翻页
+      disableOnInteraction: false     // ② 手动滑动或点击后自动播放不停止
+    },
+    pagination: {
+      el: '#wyjcxPag4',               // ③ 圆点分页器元素
+      clickable: true                 // ③ 圆点可点击跳转
+    }
+  });
+
+  // 鞠传祥：演示二 · creative 电影墙——四项要求同上，只把 effect 换成 creative
+  const jcx_sw5 = new Swiper('#wyjcxSw5', {
+    loop: true,                       // ① 无缝循环
+    effect: 'creative',               // 电影墙效果
+    speed: 700,
+    creativeEffect: {
+      limitProgress: 2,
+      prev: {                         // 上一张：缩小左移并带角度退场
+        shadow: true,
+        translate: ['-120%', 0, -300],
+        rotate: [0, 0, -10],
+        scale: 0.7,
+        opacity: 0.6
+      },
+      next: {                         // 下一张：放大从右侧进场
+        shadow: true,
+        translate: ['120%', 0, 0],
+        rotate: [0, 0, 10],
+        scale: 1.15
+      }
+    },
+    autoplay: {
+      delay: 3200,                    // ② 每 3.2 秒自动翻页
+      disableOnInteraction: false     // ② 手动操作后不停止
+    },
+    pagination: {
+      el: '#wyjcxPag5',               // ③ 圆点分页器元素
+      clickable: true                 // ③ 圆点可点击跳转
+    }
+  });
+
+  // 鞠传祥：演示三 · zoom 双击缩放——这里不开自动播放，否则刚放大就翻页，看不清细节
+  const jcx_sw6 = new Swiper('#wyjcxSw6', {
+    loop: true,
+    zoom: {
+      maxRatio: 3,                    // 最多放大到 3 倍
+      minRatio: 1,
+      toggle: true                    // 双击切换放大 / 还原
+    },
+    pagination: {
+      el: '#wyjcxPag6',
+      clickable: true
+    }
+  });
+</script>
+</body>
+</html>
